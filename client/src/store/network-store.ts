@@ -10,6 +10,7 @@ import { devtools } from 'zustand/middleware';
 import { SocketClient, ConnectionStatus, RoomInfo, getSocketClient } from '../network/socket-client';
 import type { GameState, GameAction, GameEvent } from '@engine/index';
 import type { RoomPlayer } from '../../../server/src/types/messages';
+import { config } from '../config/environment';
 
 /**
  * Estado del store de red
@@ -82,8 +83,14 @@ type NetworkStore = NetworkState & NetworkActions;
 export const useNetworkStore = create<NetworkStore>()(
   devtools(
     (set, get) => {
-      // Crear cliente WebSocket
-      const client = getSocketClient();
+      // Crear cliente WebSocket con configuración de entorno
+      const client = getSocketClient({
+        serverUrl: config.serverUrl,
+        autoConnect: false,
+        reconnection: config.socket.reconnection,
+        reconnectionAttempts: config.socket.reconnectionAttempts,
+        reconnectionDelay: config.socket.reconnectionDelay,
+      });
       
       // Configurar callbacks
       client.on({

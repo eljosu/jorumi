@@ -6,6 +6,7 @@
  */
 
 import { io, Socket } from 'socket.io-client';
+import { ClientMessageType } from '../../../server/src/types/messages';
 import type { 
   ClientMessage,
   ServerMessage,
@@ -389,10 +390,10 @@ export class SocketClient {
    */
   createRoom(playerName: string, roomConfig?: any): void {
     this.send({
-      type: 'CREATE_ROOM',
+      type: ClientMessageType.CREATE_ROOM,
       playerName,
       roomConfig,
-    });
+    } as ClientMessage);
   }
 
   /**
@@ -400,10 +401,10 @@ export class SocketClient {
    */
   joinRoom(roomId: RoomId, playerName: string): void {
     this.send({
-      type: 'JOIN_ROOM',
+      type: ClientMessageType.JOIN_ROOM,
       roomId,
       playerName,
-    });
+    } as ClientMessage);
   }
 
   /**
@@ -416,9 +417,9 @@ export class SocketClient {
     }
     
     this.send({
-      type: 'LEAVE_ROOM',
+      type: ClientMessageType.LEAVE_ROOM,
       roomId: this.currentRoom.roomId,
-    });
+    } as ClientMessage);
   }
 
   /**
@@ -432,10 +433,10 @@ export class SocketClient {
     }
     
     this.send({
-      type: 'PLAYER_ACTION',
+      type: ClientMessageType.PLAYER_ACTION,
       roomId: this.currentRoom.roomId,
       action,
-    });
+    } as ClientMessage);
   }
 
   /**
@@ -448,9 +449,9 @@ export class SocketClient {
     }
     
     this.send({
-      type: 'REQUEST_SNAPSHOT',
+      type: ClientMessageType.REQUEST_SNAPSHOT,
       roomId: this.currentRoom.roomId,
-    });
+    } as ClientMessage);
   }
 
   /**
@@ -521,9 +522,9 @@ export class SocketClient {
  */
 let clientInstance: SocketClient | null = null;
 
-export function getSocketClient(): SocketClient {
+export function getSocketClient(options?: SocketClientOptions): SocketClient {
   if (!clientInstance) {
-    clientInstance = new SocketClient();
+    clientInstance = new SocketClient(options);
   }
   return clientInstance;
 }
