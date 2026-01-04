@@ -5,7 +5,7 @@
  * Diseñado para servidor autoritativo
  */
 
-import type { GameState, GameAction, GameEvent, PlayerRole } from '../../../engine';
+import type { GameState, GameAction, GameEvent, PlayerRole } from '@jorumi/engine';
 
 // ============================================================================
 // TIPOS BASE

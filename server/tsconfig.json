@@ -12,14 +12,10 @@
     "moduleResolution": "node",
     "declaration": true,
     "declarationMap": true,
-    "sourceMap": true,
-    "baseUrl": ".",
-    "paths": {
-      "@jorumi/engine": ["../engine/index.ts"]
-    }
+    "sourceMap": true
   },
-  "include": ["src/**/*", "../engine/**/*"],
-  "exclude": ["node_modules", "dist", "../engine/examples/**/*", "../engine/tests/**/*"]
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist"]
 }
 
 

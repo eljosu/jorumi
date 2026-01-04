@@ -2,8 +2,8 @@
   "name": "@jorumi/engine",
   "version": "1.0.0",
   "description": "Motor de reglas del juego de mesa cooperativo JORUMI",
-  "main": "index.ts",
-  "types": "index.ts",
+  "main": "index.js",
+  "types": "index.d.ts",
   "scripts": {
     "test": "ts-node tests/game-rules.test.ts",
     "examples": "ts-node examples/basic-usage.ts",

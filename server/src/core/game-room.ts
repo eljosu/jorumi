@@ -5,7 +5,7 @@
  * Una sala = Una instancia de GameEngine
  */
 
-import { GameEngine, GameState, GameAction, ActionResult, PlayerRole } from '../../../engine';
+import { GameEngine, GameState, GameAction, ActionResult, PlayerRole } from '@jorumi/engine';
 import type { RoomId, RoomPlayer, RoomConfig } from '../types/messages';
 import { nanoid } from 'nanoid';
 
