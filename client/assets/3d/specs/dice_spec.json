@@ -1,0 +1,298 @@
+{
+  "version": "1.0",
+  "category": "dice",
+  "technical_requirements": {
+    "format": "GLB",
+    "scale": "Standard D6 size: ~0.016 meters (16mm)",
+    "poly_budget": "500-1500 tris per die",
+    "texture_resolution": "1024x1024 (shared atlas possible)",
+    "pivot_point": "Geometric center",
+    "pbr_channels": ["BaseColor", "MetallicRoughness", "Normal", "Emission"],
+    "physics_ready": "Convex collider friendly"
+  },
+  "animation_requirements": {
+    "roll_animation": "Prepared for physics-based or procedural roll",
+    "center_of_mass": "Perfectly centered for fair rolls",
+    "edge_beveling": "Slight bevel for realistic tumbling"
+  },
+  "dice": [
+    {
+      "type": "ALIEN_ATTACK",
+      "name": "Alien Attack Die",
+      "filename": "dice_alien_attack.glb",
+      "description": "6-sided die with alien attack symbols",
+      "faces": [
+        {
+          "face": 1,
+          "symbol": "SHIELD",
+          "description": "Shield icon - reinforces alien defenses",
+          "icon_design": "Hexagonal shield shape with alien patterns",
+          "quantity": 2
+        },
+        {
+          "face": 2,
+          "symbol": "SHIELD",
+          "description": "Second shield face",
+          "icon_design": "Same as face 1",
+          "quantity": 2
+        },
+        {
+          "face": 3,
+          "symbol": "CONTROL",
+          "description": "Control icon - takes over ghetto",
+          "icon_design": "Tentacle/hand grasping symbol",
+          "quantity": 1
+        },
+        {
+          "face": 4,
+          "symbol": "ATTACK",
+          "description": "Single attack icon",
+          "icon_design": "Single claw/strike mark",
+          "quantity": 2
+        },
+        {
+          "face": 5,
+          "symbol": "ATTACK",
+          "description": "Second attack face",
+          "icon_design": "Same as face 4",
+          "quantity": 2
+        },
+        {
+          "face": 6,
+          "symbol": "DOUBLE_ATTACK",
+          "description": "Double attack icon - devastating",
+          "icon_design": "Double claw marks or explosion symbol",
+          "quantity": 1
+        }
+      ],
+      "visual_design": {
+        "base_material": "Dark alien biomechanical appearance",
+        "symbol_treatment": "Glowing carved symbols (emissive)",
+        "edge_treatment": "Sharp but slightly organic edges",
+        "size": {
+          "width": 0.016,
+          "height": 0.016,
+          "depth": 0.016,
+          "unit": "meters"
+        },
+        "key_colors": {
+          "body": "#4A235A",
+          "symbols": "#39FF14",
+          "emission": true
+        }
+      },
+      "technical_details": {
+        "poly_count_target": "800-1200 tris",
+        "symbol_modeling": "Embossed relief geometry (not decals)",
+        "symbol_depth": "0.0005 meters recessed",
+        "emission_strength": 0.6,
+        "roughness": 0.4,
+        "metallic": 0.1
+      }
+    },
+    {
+      "type": "ALIEN_ACTION",
+      "name": "Alien Action Die",
+      "filename": "dice_alien_action.glb",
+      "description": "6-sided die with alien action symbols",
+      "faces": [
+        {
+          "face": 1,
+          "symbol": "MOVE",
+          "description": "Movement icon",
+          "icon_design": "Directional arrow or footprint",
+          "quantity": 2
+        },
+        {
+          "face": 2,
+          "symbol": "MOVE",
+          "description": "Second move face",
+          "quantity": 2
+        },
+        {
+          "face": 3,
+          "symbol": "SCAN",
+          "description": "Scan/detect icon",
+          "icon_design": "Radar waves or eye symbol",
+          "quantity": 2
+        },
+        {
+          "face": 4,
+          "symbol": "SCAN",
+          "description": "Second scan face",
+          "quantity": 2
+        },
+        {
+          "face": 5,
+          "symbol": "BOMB",
+          "description": "Bomb/destroy tile icon",
+          "icon_design": "Explosion or bomb symbol",
+          "quantity": 1
+        },
+        {
+          "face": 6,
+          "symbol": "SPECIAL",
+          "description": "Special action icon",
+          "icon_design": "Star or complex alien glyph",
+          "quantity": 1
+        }
+      ],
+      "visual_design": {
+        "base_material": "Similar to attack die but different color",
+        "symbol_treatment": "Glowing cyan symbols",
+        "edge_treatment": "Sharp but slightly organic edges",
+        "size": {
+          "width": 0.016,
+          "height": 0.016,
+          "depth": 0.016,
+          "unit": "meters"
+        },
+        "key_colors": {
+          "body": "#0D1B2A",
+          "symbols": "#00D9FF",
+          "emission": true
+        }
+      },
+      "technical_details": {
+        "poly_count_target": "800-1200 tris",
+        "symbol_modeling": "Embossed relief geometry",
+        "symbol_depth": "0.0005 meters recessed",
+        "emission_strength": 0.6,
+        "roughness": 0.4,
+        "metallic": 0.2
+      }
+    },
+    {
+      "type": "HUMAN_D6",
+      "name": "Human D6 Die",
+      "filename": "dice_human_d6.glb",
+      "description": "Standard 6-sided die with human aesthetics",
+      "faces": [
+        {"face": 1, "number": 1, "pips": 1},
+        {"face": 2, "number": 2, "pips": 2},
+        {"face": 3, "number": 3, "pips": 3},
+        {"face": 4, "number": 4, "pips": 4},
+        {"face": 5, "number": 5, "pips": 5},
+        {"face": 6, "number": 6, "pips": 6}
+      ],
+      "visual_design": {
+        "base_material": "Military olive green or worn gray",
+        "number_treatment": "Carved pips or numbers, painted white",
+        "edge_treatment": "Slightly worn/chipped corners",
+        "weathering": "Used, battle-worn appearance",
+        "size": {
+          "width": 0.016,
+          "height": 0.016,
+          "depth": 0.016,
+          "unit": "meters"
+        },
+        "key_colors": {
+          "body": "#4A5D4A",
+          "numbers": "#E8E8E8"
+        }
+      },
+      "technical_details": {
+        "poly_count_target": "500-800 tris",
+        "pip_modeling": "Recessed spherical indents",
+        "pip_depth": "0.0003 meters",
+        "roughness": 0.6,
+        "metallic": 0.0
+      }
+    },
+    {
+      "type": "HUMAN_2D3",
+      "name": "Human 2D3 Dice (set of 2)",
+      "filename": "dice_human_2d3.glb",
+      "description": "Two 3-sided dice (or D6 marked 1-3 twice)",
+      "implementation_note": "Can be implemented as D6 with faces 1-3 repeated",
+      "faces_per_die": [
+        {"face": 1, "number": 1},
+        {"face": 2, "number": 1},
+        {"face": 3, "number": 2},
+        {"face": 4, "number": 2},
+        {"face": 5, "number": 3},
+        {"face": 6, "number": 3}
+      ],
+      "visual_design": {
+        "base_material": "Similar to D6 but slightly different color",
+        "number_treatment": "Clear numbers 1-3",
+        "edge_treatment": "Same as D6",
+        "size": {
+          "width": 0.016,
+          "height": 0.016,
+          "depth": 0.016,
+          "unit": "meters"
+        },
+        "key_colors": {
+          "body": "#6B7280",
+          "numbers": "#E5B641"
+        }
+      },
+      "technical_details": {
+        "poly_count_target": "500-800 tris per die",
+        "note": "Export as single GLB with two separate dice meshes",
+        "separation": "Dice positioned ~0.02 meters apart"
+      }
+    },
+    {
+      "type": "COMBAT",
+      "name": "Combat Die",
+      "filename": "dice_combat.glb",
+      "description": "Special combat D6 with hit/miss symbols",
+      "faces": [
+        {"face": 1, "symbol": "MISS", "icon": "X or blank"},
+        {"face": 2, "symbol": "MISS", "icon": "X or blank"},
+        {"face": 3, "symbol": "HIT", "icon": "Crosshair"},
+        {"face": 4, "symbol": "HIT", "icon": "Crosshair"},
+        {"face": 5, "symbol": "HIT", "icon": "Crosshair"},
+        {"face": 6, "symbol": "CRITICAL", "icon": "Skull or explosion"}
+      ],
+      "visual_design": {
+        "base_material": "Black or dark gray, aggressive",
+        "symbol_treatment": "Red symbols for hits, white for miss",
+        "edge_treatment": "Sharp, military",
+        "size": {
+          "width": 0.016,
+          "height": 0.016,
+          "depth": 0.016,
+          "unit": "meters"
+        },
+        "key_colors": {
+          "body": "#2B2B2B",
+          "hit_symbols": "#C13030",
+          "miss_symbols": "#6B7280",
+          "critical": "#FF4444"
+        }
+      },
+      "technical_details": {
+        "poly_count_target": "600-1000 tris",
+        "symbol_modeling": "Embossed or painted texture",
+        "critical_face": "Optional subtle glow effect"
+      }
+    }
+  ],
+  "animation_guidelines": {
+    "roll_physics": {
+      "angular_velocity": "Random tumble on each axis",
+      "bounce": "2-4 bounces before settling",
+      "easing": "Exponential decay",
+      "duration": "1.5-2.5 seconds total"
+    },
+    "hover_state": {
+      "idle": "Gentle float and rotate when not in use",
+      "ready_to_roll": "Faster rotation, anticipation"
+    }
+  },
+  "texture_atlas_option": {
+    "note": "All dice can share a 2048x2048 texture atlas for efficiency",
+    "layout": "Separate faces in atlas, unique UVs per die type"
+  },
+  "physics_considerations": {
+    "collider_type": "Box collider (simplified)",
+    "center_of_mass": "Perfect center (0, 0, 0 in local space)",
+    "friction": 0.5,
+    "bounciness": 0.3
+  }
+}
+
+

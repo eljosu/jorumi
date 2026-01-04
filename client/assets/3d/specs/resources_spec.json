@@ -1,0 +1,188 @@
+{
+  "version": "1.0",
+  "category": "resources",
+  "technical_requirements": {
+    "format": "GLB",
+    "scale": "Proportional to human hand/container",
+    "poly_budget": "200-800 tris per resource",
+    "texture_resolution": "512x512 or 1024x1024",
+    "pivot_point": "Center base",
+    "pbr_channels": ["BaseColor", "MetallicRoughness", "Normal (optional)"]
+  },
+  "design_philosophy": {
+    "readability": "Must be instantly recognizable from isometric view",
+    "style": "Futuristic but functional, not too abstract",
+    "color_coding": "Each resource type has distinct color palette",
+    "size_reference": "Sized to fit in character hands or small containers"
+  },
+  "resources": [
+    {
+      "type": "FOOD",
+      "name": "Food Supply",
+      "filename": "res_food_crate_01.glb",
+      "description": "Futuristic food supply container",
+      "visual_design": {
+        "form": "Rectangular crate/container with handles",
+        "iconography": "Food symbol embossed/stenciled on sides",
+        "materials": "Plastic/composite with metallic reinforcements",
+        "weathering": "Slightly worn, used in the field",
+        "size": {
+          "width": 0.3,
+          "height": 0.25,
+          "depth": 0.3,
+          "unit": "meters"
+        },
+        "key_colors": {
+          "primary": "#6B8E6B",
+          "secondary": "#8B7355",
+          "accent": "#E8E8E8"
+        }
+      },
+      "technical_details": {
+        "poly_count_target": "300-500 tris",
+        "separate_lid": false,
+        "handle_detail": "Simple geometry"
+      },
+      "variations": [
+        {
+          "name": "res_food_package_01.glb",
+          "description": "Single food package (smaller)"
+        },
+        {
+          "name": "res_food_pile_01.glb",
+          "description": "Stacked food containers (3 units)"
+        }
+      ]
+    },
+    {
+      "type": "MEDICINE",
+      "name": "Medicine Supply",
+      "filename": "res_medicine_case_01.glb",
+      "description": "Medical supply case with red cross",
+      "visual_design": {
+        "form": "Compact medical case/briefcase",
+        "iconography": "Large red cross on top and sides",
+        "materials": "White/light gray plastic, sterile appearance",
+        "details": "Latches, reinforced corners",
+        "size": {
+          "width": 0.35,
+          "height": 0.15,
+          "depth": 0.25,
+          "unit": "meters"
+        },
+        "key_colors": {
+          "primary": "#E8E8E8",
+          "secondary": "#C13030",
+          "accent": "#00D9FF"
+        }
+      },
+      "technical_details": {
+        "poly_count_target": "400-600 tris",
+        "cross_modeling": "Embossed relief, not decal",
+        "handle": "Simple loop handle on top"
+      },
+      "variations": [
+        {
+          "name": "res_medicine_vial_01.glb",
+          "description": "Single glowing vial (for detail scenes)"
+        },
+        {
+          "name": "res_medicine_capsule_01.glb",
+          "description": "Futuristic pill capsule container"
+        }
+      ]
+    },
+    {
+      "type": "METAL",
+      "name": "Metal Resources",
+      "filename": "res_metal_ingot_01.glb",
+      "description": "Refined metal ingot",
+      "visual_design": {
+        "form": "Industrial metal ingot/bar",
+        "iconography": "Stamped serial code/numbers on top",
+        "materials": "Metallic, reflective with scratches",
+        "details": "Beveled edges, cast marks",
+        "size": {
+          "width": 0.15,
+          "height": 0.08,
+          "depth": 0.25,
+          "unit": "meters"
+        },
+        "key_colors": {
+          "primary": "#A8B2BB",
+          "secondary": "#6B7280",
+          "accent": "#4A5568"
+        }
+      },
+      "technical_details": {
+        "poly_count_target": "200-400 tris",
+        "metallic_value": 0.9,
+        "roughness_value": 0.3,
+        "stamped_text": "Optional normal map detail"
+      },
+      "variations": [
+        {
+          "name": "res_metal_scrap_01.glb",
+          "description": "Pile of technological scrap metal"
+        },
+        {
+          "name": "res_metal_plate_01.glb",
+          "description": "Flat metal plate (for construction)"
+        }
+      ]
+    },
+    {
+      "type": "MINERALS",
+      "name": "Minerals/Diamonds",
+      "filename": "res_mineral_crystal_01.glb",
+      "description": "Valuable crystalline mineral cluster",
+      "visual_design": {
+        "form": "Crystalline cluster, geometric facets",
+        "iconography": "Natural crystal formation",
+        "materials": "Translucent crystal with internal glow",
+        "details": "Sharp edges, varied crystal sizes",
+        "size": {
+          "width": 0.2,
+          "height": 0.25,
+          "depth": 0.2,
+          "unit": "meters"
+        },
+        "key_colors": {
+          "primary": "#00D9FF",
+          "secondary": "#4A235A",
+          "accent": "#39FF14",
+          "emission": true
+        }
+      },
+      "technical_details": {
+        "poly_count_target": "400-800 tris",
+        "transparency": "Alpha blend, transmission if supported",
+        "emission_strength": 0.3,
+        "faceted_modeling": "Low poly crystal look",
+        "roughness_value": 0.1,
+        "metallic_value": 0.0
+      },
+      "variations": [
+        {
+          "name": "res_mineral_single_01.glb",
+          "description": "Single large crystal"
+        },
+        {
+          "name": "res_mineral_shard_01.glb",
+          "description": "Crystal shard/fragment"
+        }
+      ]
+    }
+  ],
+  "stacking_guidelines": {
+    "note": "Resources should be designed to stack visually",
+    "offset_suggestion": "0.05 units vertical spacing when stacked",
+    "pile_variants": "Consider creating 'pile' versions (2-3 items pre-stacked)"
+  },
+  "icon_versions": {
+    "note": "Each resource should have a simplified icon version for UI",
+    "suggested_approach": "Render 256x256 PNG from top-down or 45° angle"
+  }
+}
+
+

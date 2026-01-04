@@ -1,0 +1,212 @@
+{
+  "version": "1.0",
+  "category": "characters",
+  "technical_requirements": {
+    "format": "GLB",
+    "scale": "1 unit = 1 meter",
+    "height_human": 1.75,
+    "poly_budget": "2000-5000 tris per character",
+    "texture_resolution": "2048x2048",
+    "pivot_point": "Center of feet, base of model",
+    "pbr_channels": ["BaseColor", "Normal", "MetallicRoughness"]
+  },
+  "shared_base": {
+    "name": "HumanBase",
+    "description": "Base humanoid mesh shared by all characters",
+    "filename": "char_base_human.glb",
+    "topology": {
+      "vertices": "~1000-1500",
+      "proportions": "Realistic stylized, slightly heroic",
+      "joints": "Prepared for rigging (shoulders, elbows, hips, knees)"
+    },
+    "uv_layout": {
+      "body": "0-0.5 horizontal space",
+      "equipment": "0.5-1.0 horizontal space"
+    }
+  },
+  "characters": [
+    {
+      "type": "DOCTOR",
+      "name": "Doctor",
+      "filename": "char_doctor_01.glb",
+      "description": "Futuristic medic with medical equipment",
+      "visual_design": {
+        "clothing": "White/light gray medical uniform with cyan accents",
+        "equipment": [
+          "Medical backpack with glowing vials",
+          "Handheld medical scanner device",
+          "Red cross symbol on chest and backpack"
+        ],
+        "silhouette": "Clean, recognizable medical professional",
+        "key_colors": {
+          "primary": "#E8E8E8",
+          "secondary": "#00D9FF",
+          "accent": "#C13030"
+        }
+      },
+      "technical_details": {
+        "poly_count_target": "3000-4000 tris",
+        "equipment_separate_meshes": true,
+        "glowing_elements": ["Backpack vials", "Scanner screen"],
+        "emission_strength": 0.5
+      },
+      "variations": [
+        {
+          "name": "char_doctor_wounded.glb",
+          "difference": "Blood stains on uniform, bandage on arm"
+        }
+      ]
+    },
+    {
+      "type": "SOLDIER",
+      "name": "Soldier",
+      "filename": "char_soldier_01.glb",
+      "description": "Light armored combat specialist with futuristic rifle",
+      "visual_design": {
+        "clothing": "Tactical light armor, olive green and black",
+        "equipment": [
+          "Futuristic assault rifle (compact design)",
+          "Combat vest with ammo pouches",
+          "Tactical helmet with visor (optional up/down)",
+          "Knee and elbow pads"
+        ],
+        "silhouette": "Imposing, clearly military",
+        "key_colors": {
+          "primary": "#4A5D4A",
+          "secondary": "#2B2B2B",
+          "accent": "#C9B697"
+        }
+      },
+      "technical_details": {
+        "poly_count_target": "4000-5000 tris",
+        "weapon_separate_mesh": true,
+        "weapon_attachment_point": "Right hand",
+        "armor_detail_level": "Medium (readable from distance)"
+      },
+      "variations": [
+        {
+          "name": "char_soldier_no_weapon.glb",
+          "difference": "No weapon equipped"
+        }
+      ]
+    },
+    {
+      "type": "PEASANT",
+      "name": "Peasant",
+      "filename": "char_peasant_01.glb",
+      "description": "Farmer/gatherer with agricultural tools",
+      "visual_design": {
+        "clothing": "Practical work clothes, earth tones, worn texture",
+        "equipment": [
+          "Satchel bag across torso",
+          "Harvesting tool (sickle or futuristic equivalent)",
+          "Utility belt",
+          "Rolled up sleeves"
+        ],
+        "silhouette": "Humble, working class",
+        "key_colors": {
+          "primary": "#8B6F47",
+          "secondary": "#C9B697",
+          "accent": "#6B8E6B"
+        }
+      },
+      "technical_details": {
+        "poly_count_target": "2500-3500 tris",
+        "cloth_detail": "Simple, functional",
+        "weathering": "Dirt and wear on clothes"
+      }
+    },
+    {
+      "type": "CONSTRUCTOR",
+      "name": "Constructor",
+      "filename": "char_constructor_01.glb",
+      "description": "Builder/engineer with mechanical tools",
+      "visual_design": {
+        "clothing": "Industrial work clothes, safety orange and yellow",
+        "equipment": [
+          "Hard hat with light",
+          "Tool belt with futuristic tools",
+          "Welding goggles (on forehead)",
+          "Exoskeleton support on back (lightweight)",
+          "Work gloves"
+        ],
+        "silhouette": "Stocky, equipped for physical work",
+        "key_colors": {
+          "primary": "#D97629",
+          "secondary": "#E5B641",
+          "accent": "#2B2B2B"
+        }
+      },
+      "technical_details": {
+        "poly_count_target": "3500-4500 tris",
+        "helmet_light": "Emissive element",
+        "tools_separate": true
+      }
+    },
+    {
+      "type": "MINER",
+      "name": "Miner",
+      "filename": "char_miner_01.glb",
+      "description": "Mining specialist with reinforced suit",
+      "visual_design": {
+        "clothing": "Reinforced mining suit, dark gray and blue",
+        "equipment": [
+          "Mining helmet with bright headlamp",
+          "Reinforced gloves and boots",
+          "Laser drill tool (compact, handheld)",
+          "Ore collection device on back",
+          "Respirator mask (optional variant)"
+        ],
+        "silhouette": "Heavily equipped, industrial",
+        "key_colors": {
+          "primary": "#6B7280",
+          "secondary": "#2C3E50",
+          "accent": "#E8B641"
+        }
+      },
+      "technical_details": {
+        "poly_count_target": "3500-4500 tris",
+        "headlamp_emission": true,
+        "emission_strength": 1.0,
+        "drill_separate_mesh": true
+      }
+    }
+  ],
+  "animation_preparation": {
+    "recommended_bones": [
+      "Root",
+      "Spine",
+      "Chest",
+      "Neck",
+      "Head",
+      "Shoulder.L/R",
+      "Arm.L/R",
+      "Forearm.L/R",
+      "Hand.L/R",
+      "Hip.L/R",
+      "Thigh.L/R",
+      "Shin.L/R",
+      "Foot.L/R"
+    ],
+    "note": "Bones optional for now, but topology should support rigging"
+  },
+  "export_settings_blender": {
+    "format": "glTF Binary (.glb)",
+    "include": "Selected Objects",
+    "transform": "+Y Up",
+    "geometry": {
+      "apply_modifiers": true,
+      "uvs": true,
+      "normals": true,
+      "tangents": true,
+      "vertex_colors": false
+    },
+    "materials": {
+      "export": true,
+      "images": "Embedded"
+    },
+    "compression": true
+  }
+}
+
+

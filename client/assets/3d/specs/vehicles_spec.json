@@ -1,0 +1,201 @@
+{
+  "version": "1.0",
+  "category": "vehicles_and_key_elements",
+  "technical_requirements": {
+    "format": "GLB",
+    "scale": "1 unit = 1 meter",
+    "poly_budget": "3000-15000 tris depending on element",
+    "texture_resolution": "2048x2048 (large elements)",
+    "pivot_point": "Center base unless specified",
+    "pbr_channels": ["BaseColor", "Normal", "MetallicRoughness", "Emission"]
+  },
+  "vehicles": [
+    {
+      "name": "Transport Boat",
+      "filename": "veh_transport_boat_01.glb",
+      "description": "Improvised futuristic transport vessel for humans",
+      "visual_design": {
+        "style": "Makeshift, cobbled together from salvage",
+        "form": "Low, wide boat shape with hover/antigrav elements",
+        "materials": "Mixed metals, welded plates, functional not pretty",
+        "details": [
+          "Visible engine/thrusters (glow elements)",
+          "Cargo area in center",
+          "Simple control console at front",
+          "Reinforced hull plates",
+          "Human markings/graffiti"
+        ],
+        "size": {
+          "length": 4.0,
+          "width": 2.5,
+          "height": 1.5,
+          "unit": "meters"
+        },
+        "key_colors": {
+          "primary": "#6B7280",
+          "secondary": "#8B6F47",
+          "accent": "#D97629",
+          "emission": "#00D9FF"
+        }
+      },
+      "technical_details": {
+        "poly_count_target": "4000-6000 tris",
+        "separate_meshes": ["Hull", "Thrusters", "Console"],
+        "emissive_elements": ["Thruster glow", "Console lights"],
+        "emission_strength": 0.7,
+        "animation_ready": {
+          "hover_float": "Slight up/down animation",
+          "thruster_pulse": "Glow intensity variation"
+        }
+      },
+      "level_of_detail": {
+        "LOD0": "Full detail 6000 tris",
+        "LOD1": "Medium 3000 tris",
+        "LOD2": "Low 1500 tris"
+      }
+    },
+    {
+      "name": "Alien Mothership",
+      "filename": "veh_mothership_01.glb",
+      "description": "Massive alien capital ship, organic-technological hybrid",
+      "visual_design": {
+        "style": "Biomechanical, H.R. Giger meets sci-fi",
+        "form": "Large elongated shape, asymmetrical but balanced",
+        "materials": "Dark metallic with organic textures, bioluminescence",
+        "details": [
+          "Organic-looking hull panels",
+          "Glowing seams and 'veins'",
+          "Multiple weapon ports",
+          "Pulsing core visible through gaps",
+          "Antenna/tentacle-like protrusions",
+          "Clearly 'evil' and alien aesthetic"
+        ],
+        "size": {
+          "length": 25.0,
+          "width": 15.0,
+          "height": 8.0,
+          "unit": "meters",
+          "note": "Large scale for dramatic presence"
+        },
+        "key_colors": {
+          "primary": "#4A235A",
+          "secondary": "#0D1B2A",
+          "accent": "#39FF14",
+          "emission_cyan": "#00D9FF",
+          "emission_green": "#39FF14"
+        }
+      },
+      "technical_details": {
+        "poly_count_target": "8000-15000 tris",
+        "separate_meshes": ["Hull_Main", "Hull_Details", "Core", "Weapons", "Glow_Elements"],
+        "emissive_elements": {
+          "core": "Pulsing bright glow",
+          "seams": "Cyan bioluminescent lines",
+          "weapon_ports": "Green warning lights"
+        },
+        "emission_strength": {
+          "core": 1.5,
+          "seams": 0.5,
+          "weapons": 0.8
+        },
+        "animation_ready": {
+          "pulse": "Core and seams pulse slowly",
+          "weapon_charge": "Weapon ports intensity ramp",
+          "hover": "Slight rotation and float"
+        }
+      },
+      "damage_variants": {
+        "veh_mothership_damaged_01.glb": "Visible battle damage, sparking",
+        "veh_mothership_damaged_02.glb": "Heavy damage, sections destroyed"
+      },
+      "level_of_detail": {
+        "LOD0": "Full detail 15000 tris (close view)",
+        "LOD1": "Medium 8000 tris (game view)",
+        "LOD2": "Low 3000 tris (far view)"
+      }
+    },
+    {
+      "name": "Floating Platform (Clandestine Workshop)",
+      "filename": "veh_floating_platform_01.glb",
+      "description": "Hidden floating workshop platform",
+      "visual_design": {
+        "style": "Industrial, improvised secret base",
+        "form": "Flat platform with workshop structure on top",
+        "materials": "Rusted metal, makeshift walls, tarps",
+        "details": [
+          "Hover tech underneath (salvaged)",
+          "Workshop tools and equipment visible",
+          "Antenna and communication array",
+          "Storage containers",
+          "Camouflage netting (optional)",
+          "Landing pad area"
+        ],
+        "size": {
+          "length": 6.0,
+          "width": 6.0,
+          "height": 3.0,
+          "unit": "meters"
+        },
+        "key_colors": {
+          "primary": "#6B7280",
+          "secondary": "#4A5568",
+          "accent": "#D97629",
+          "rust": "#8B4513"
+        }
+      },
+      "technical_details": {
+        "poly_count_target": "5000-8000 tris",
+        "separate_meshes": ["Platform_Base", "Hover_Tech", "Workshop_Structure", "Equipment", "Details"],
+        "emissive_elements": ["Workshop lights", "Hover indicators"],
+        "emission_strength": 0.4
+      }
+    },
+    {
+      "name": "Auxiliary Escape Ship",
+      "filename": "veh_escape_ship_01.glb",
+      "description": "Small alien auxiliary ship (victory condition)",
+      "visual_design": {
+        "style": "Alien but smaller, more utilitarian than mothership",
+        "form": "Compact shuttle shape",
+        "materials": "Similar to mothership but cleaner",
+        "details": [
+          "Cockpit area",
+          "Small thrusters",
+          "Cargo bay doors",
+          "Minimal alien aesthetics"
+        ],
+        "size": {
+          "length": 5.0,
+          "width": 3.0,
+          "height": 2.5,
+          "unit": "meters"
+        },
+        "key_colors": {
+          "primary": "#4A235A",
+          "secondary": "#6B7280",
+          "accent": "#00D9FF"
+        }
+      },
+      "technical_details": {
+        "poly_count_target": "3000-5000 tris",
+        "emissive_elements": ["Engine", "Cockpit"],
+        "animation_ready": {
+          "takeoff": "Vertical lift with rotation"
+        }
+      }
+    }
+  ],
+  "scene_placement_notes": {
+    "mothership": "Typically positioned high above battlefield, dramatic angle",
+    "transport_boat": "Ground level, near ghettos or between tiles",
+    "platform": "Mid-height floating, hidden areas of map",
+    "escape_ship": "Usually near mothership or as objective marker"
+  },
+  "camera_considerations": {
+    "primary_view": "Isometric or semi-aerial (30-45° angle)",
+    "silhouette_importance": "Must be recognizable from game camera distance",
+    "scale_reference": "Human characters should look appropriate next to vehicles"
+  }
+}
+
+
