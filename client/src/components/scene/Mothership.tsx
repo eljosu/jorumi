@@ -9,7 +9,7 @@
  * - alien.currentTileId → Posición
  */
 
-import { Tile, TileId } from '@engine/domain/types';
+import { Tile, TileId } from '@engine/index';
 import { hexToWorld } from '@/utils/coordinate-converter';
 import { useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
@@ -97,5 +97,6 @@ export function Mothership({ tileId, tiles, health, shield }: MothershipProps) {
     </group>
   );
 }
+
 
 

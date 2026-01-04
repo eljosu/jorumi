@@ -646,3 +646,4 @@ Abre http://localhost:3000 y verás el juego funcionando con la arquitectura de 
 
 
 
+

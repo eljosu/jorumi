@@ -619,3 +619,4 @@ Esta arquitectura proporciona:
 El motor está listo para soportar el juego completo de JORUMI y evolucionar con futuras expansiones.
 
 
+

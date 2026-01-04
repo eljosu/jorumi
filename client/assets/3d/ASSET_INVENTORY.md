@@ -306,3 +306,4 @@ client/assets/3d/
 **Estado Global:** ⏳ Especificado, pendiente de generación
 
 
+

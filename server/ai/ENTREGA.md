@@ -649,3 +649,4 @@ Este sistema ha sido diseñado siguiendo:
 - `example-usage.ts` - Ejemplos ejecutables
 
 
+

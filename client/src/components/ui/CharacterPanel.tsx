@@ -6,7 +6,7 @@
  */
 
 import { useGameStore, selectSelectedCharacter } from '@/store/game-store';
-import { ActionType, CharacterType } from '@engine/index';
+import { ActionType, CharacterType, ResourceType } from '@engine/index';
 
 // Nombres amigables para tipos de personajes
 const CHARACTER_NAMES: Record<CharacterType, string> = {
@@ -34,7 +34,7 @@ export function CharacterPanel() {
       type: ActionType.GATHER_RESOURCES,
       playerId: gameState.currentPlayerId,
       characterId: character.id,
-      resourceType: 'FOOD',
+      resourceType: ResourceType.FOOD,
       amount: 3,
       timestamp: Date.now(),
     });
@@ -98,5 +98,6 @@ export function CharacterPanel() {
     </div>
   );
 }
+
 
 

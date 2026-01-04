@@ -289,3 +289,4 @@ Para dudas técnicas o revisión de assets:
 **Última actualización:** Enero 2026
 
 
+

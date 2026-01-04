@@ -25,6 +25,7 @@ export { reduceAction } from './core/action-reducer';
 // ============================================================================
 
 export type {
+  // Core types
   GameState,
   Player,
   Character,
@@ -35,6 +36,11 @@ export type {
   HexCoordinates,
   ValidationResult,
   DiceRollResult,
+  // ID types
+  PlayerId,
+  CharacterId,
+  GhettoId,
+  TileId,
 } from './domain/types';
 
 export {
@@ -168,5 +174,6 @@ export {
   shuffle,
   randomElement,
 } from './utils/helpers';
+
 
 

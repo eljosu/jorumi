@@ -579,3 +579,4 @@ El motor de reglas de JORUMI está **100% completo y funcional**.
 **Arquitectura limpia • Código testeable • 100% determinista**
 
 
+

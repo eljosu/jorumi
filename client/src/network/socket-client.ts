@@ -13,7 +13,7 @@ import type {
   RoomId,
   RoomPlayer,
 } from '../../../server/src/types/messages';
-import type { GameState, GameAction, GameEvent } from '../../../engine';
+import type { GameState, GameAction, GameEvent } from '@engine/index';
 
 /**
  * Opciones del cliente
@@ -531,5 +531,6 @@ export function getSocketClient(): SocketClient {
 export function createSocketClient(options?: SocketClientOptions): SocketClient {
   return new SocketClient(options);
 }
+
 
 

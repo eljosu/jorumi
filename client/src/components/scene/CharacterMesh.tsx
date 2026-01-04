@@ -15,7 +15,7 @@
  * - El motor determina si el movimiento es válido
  */
 
-import { Character, Tile, TileId } from '@engine/domain/types';
+import { Character, Tile, TileId } from '@engine/index';
 import { hexToWorld } from '@/utils/coordinate-converter';
 import { useRef, useEffect, useState } from 'react';
 import { useFrame } from '@react-three/fiber';
@@ -152,5 +152,6 @@ export function CharacterMesh({ character, tiles }: CharacterMeshProps) {
     </mesh>
   );
 }
+
 
 

@@ -623,3 +623,4 @@ Este sistema es parte del proyecto JORUMI.
 Para preguntas o sugerencias sobre el sistema de balance, consultar la documentación del proyecto principal JORUMI.
 
 
+

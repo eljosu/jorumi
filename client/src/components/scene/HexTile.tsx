@@ -10,7 +10,7 @@
  * - tile.resources → Muestra recursos
  */
 
-import { Tile, TileType } from '@engine/domain/types';
+import { Tile, TileType } from '@engine/index';
 import { hexToWorld } from '@/utils/coordinate-converter';
 import { useRef, useState } from 'react';
 import { useFrame } from '@react-three/fiber';
@@ -111,5 +111,6 @@ export function HexTile({ tile }: HexTileProps) {
     </group>
   );
 }
+
 
 

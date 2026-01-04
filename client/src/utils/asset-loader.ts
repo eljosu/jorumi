@@ -8,7 +8,7 @@
  */
 
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
-import { CharacterType, ResourceType, DiceType } from '@engine/domain/types';
+import { CharacterType, ResourceType, DiceType } from '@engine/index';
 import * as THREE from 'three';
 
 // ============================================================================
@@ -147,5 +147,6 @@ export async function preloadAllAssets() {
   
   await assetManager.preloadAll(all);
 }
+
 
 

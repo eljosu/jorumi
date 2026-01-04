@@ -8,7 +8,7 @@
 import { create } from 'zustand';
 import { devtools } from 'zustand/middleware';
 import { SocketClient, ConnectionStatus, RoomInfo, getSocketClient } from '../network/socket-client';
-import type { GameState, GameAction, GameEvent } from '../../../engine';
+import type { GameState, GameAction, GameEvent } from '@engine/index';
 import type { RoomPlayer } from '../../../server/src/types/messages';
 
 /**
@@ -321,5 +321,6 @@ export const useMyRole = () => {
     return me?.role ?? null;
   });
 };
+
 
 

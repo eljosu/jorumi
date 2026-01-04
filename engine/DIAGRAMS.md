@@ -532,3 +532,4 @@ BuildingType
 **Estos diagramas ilustran la arquitectura completa del motor de JORUMI**
 
 
+

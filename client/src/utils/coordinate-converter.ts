@@ -10,7 +10,7 @@
  * - Esta utilidad es SOLO para visualización, NO afecta las reglas
  */
 
-import { HexCoordinates } from '@engine/domain/types';
+import { HexCoordinates } from '@engine/index';
 import * as THREE from 'three';
 
 /**
@@ -117,5 +117,6 @@ export function getHexVertices(center: THREE.Vector3): THREE.Vector3[] {
   
   return vertices;
 }
+
 
 
