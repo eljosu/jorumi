@@ -5,8 +5,8 @@
  * Pattern: Redux-like reducer para máxima predictibilidad
  */
 
-import { GameState, Character, Ghetto, Tile } from '../domain/types';
-import { GameAction, ActionType, ActionResult, GameEvent } from '../actions/types';
+import { GameState, Character, Ghetto, Tile, BuildingType } from '../domain/types';
+import { GameAction, ActionType, ActionResult, GameEvent, BuildStructureAction } from '../actions/types';
 import { validateAction } from '../actions/validators';
 import { cloneGameState } from './state-factory';
 import { PhaseMachine } from '../rules/phase-machine';
@@ -191,11 +191,11 @@ function reduceGatherResources(
  */
 function reduceBuildStructure(
   state: GameState,
-  action: any,
+  action: BuildStructureAction,
   events: GameEvent[]
 ): GameState {
   const ghetto = state.ghettos.get(action.ghettoId)!;
-  const cost = BUILDING_COSTS[action.buildingType];
+  const cost = BUILDING_COSTS[action.buildingType as BuildingType];
   
   // Restar recursos
   const newResources = subtractInventories(ghetto.resources, cost);

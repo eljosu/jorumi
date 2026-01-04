@@ -12,7 +12,7 @@ import {
   liberateGhetto,
   checkGameEnd,
 } from '../rules/game-rules';
-import { GameState, Ghetto, Character, GhettoControlStatus, CharacterType } from '../domain/types';
+import { GameState, Ghetto, Character, GhettoControlStatus, CharacterType, BuildingType } from '../domain/types';
 import { createEmptyInventory } from '../utils/helpers';
 
 // ============================================================================
@@ -299,7 +299,7 @@ export function test_GameEnd_BeaconActivated() {
     ghettos: new Map([
       ['ghetto-1', createTestGhetto({ 
         population: 10,
-        buildings: ['BEACON'],
+        buildings: [BuildingType.BEACON],
         controlStatus: GhettoControlStatus.HUMAN,
       })],
     ]),

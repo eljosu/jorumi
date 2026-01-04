@@ -178,8 +178,8 @@ export class GameEngine {
       }
       
       this.log('Action applied successfully', {
-        phase: this.state.phase,
-        turn: this.state.turn,
+        phase: result.newState.phase,
+        turn: result.newState.turn,
         events: result.events?.length ?? 0,
       });
     } else {

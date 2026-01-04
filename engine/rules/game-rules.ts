@@ -13,6 +13,7 @@ import {
   Ghetto,
   Character,
   CharacterType,
+  BuildingType,
 } from '../domain/types';
 import { 
   SURVIVAL_MECHANICS, 
@@ -286,7 +287,7 @@ export function checkEscapeShip(state: GameState): boolean {
 export function checkBeaconActivated(state: GameState): boolean {
   // Verificar si hay alguna baliza construida y activada
   for (const ghetto of state.ghettos.values()) {
-    if (ghetto.buildings.includes('BEACON') && 
+    if (ghetto.buildings.includes(BuildingType.BEACON) && 
         ghetto.controlStatus === GhettoControlStatus.HUMAN) {
       return true;
     }

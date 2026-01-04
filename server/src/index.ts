@@ -5,7 +5,7 @@
  * Arquitectura: Express + Socket.IO + GameEngine
  */
 
-import express from 'express';
+import express, { Request, Response } from 'express';
 import { createServer } from 'http';
 import cors from 'cors';
 import { SocketServer } from './network/socket-server';
@@ -31,7 +31,7 @@ app.use(cors({
 app.use(express.json());
 
 // Health check endpoint
-app.get('/health', (req, res) => {
+app.get('/health', (req: Request, res: Response) => {
   res.json({
     status: 'ok',
     timestamp: new Date().toISOString(),
@@ -40,7 +40,7 @@ app.get('/health', (req, res) => {
 });
 
 // Stats endpoint
-app.get('/stats', (req, res) => {
+app.get('/stats', (req: Request, res: Response) => {
   if (socketServer) {
     res.json(socketServer.getStats());
   } else {
@@ -49,7 +49,7 @@ app.get('/stats', (req, res) => {
 });
 
 // Root endpoint
-app.get('/', (req, res) => {
+app.get('/', (req: Request, res: Response) => {
   res.json({
     name: 'JORUMI Server',
     version: '1.0.0',

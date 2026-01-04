@@ -5,7 +5,7 @@
  * Cada validador verifica si una acción es legal en el estado actual
  */
 
-import { GameState, ValidationResult, GamePhase, GhettoControlStatus } from '../domain/types';
+import { GameState, ValidationResult, GamePhase, GhettoControlStatus, BuildingType } from '../domain/types';
 import { GameAction, ActionType } from './types';
 import { hexDistance } from '../utils/hex';
 import { hasEnoughResources } from '../utils/helpers';
@@ -368,7 +368,7 @@ export function validateActivateBeacon(state: GameState, action: GameAction): Va
   }
   
   // Verificar que hay una baliza construida
-  if (!ghetto.buildings.includes('BEACON')) {
+  if (!ghetto.buildings.includes(BuildingType.BEACON)) {
     return { valid: false, reason: 'No beacon in this ghetto' };
   }
   
