@@ -7,7 +7,7 @@
  */
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.GameRoomFactory = exports.GameRoom = exports.RoomStatus = void 0;
-const engine_1 = require("../../../engine");
+const engine_1 = require("@jorumi/engine");
 const nanoid_1 = require("nanoid");
 /**
  * Estados de la sala

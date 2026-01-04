@@ -4,7 +4,7 @@
  * Definición completa del protocolo de comunicación cliente-servidor
  * Diseñado para servidor autoritativo
  */
-import type { GameState, GameAction, GameEvent, PlayerRole } from '../../../engine';
+import type { GameState, GameAction, GameEvent, PlayerRole } from '@jorumi/engine';
 export type RoomId = string;
 export type ConnectionId = string;
 /**

@@ -4,7 +4,7 @@
  * Gestiona una partida individual con su motor de reglas
  * Una sala = Una instancia de GameEngine
  */
-import { GameState, GameAction, ActionResult, PlayerRole } from '../../../engine';
+import { GameState, GameAction, ActionResult, PlayerRole } from '@jorumi/engine';
 import type { RoomId, RoomPlayer } from '../types/messages';
 /**
  * Estados de la sala
