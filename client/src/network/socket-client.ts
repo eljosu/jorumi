@@ -14,7 +14,7 @@ import type {
   RoomId,
   RoomPlayer,
 } from '../../../server/src/types/messages';
-import type { GameState, GameAction, GameEvent } from '@engine/index';
+import type { GameState, GameAction, GameEvent } from '@/types/game-types';
 
 /**
  * Opciones del cliente

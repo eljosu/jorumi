@@ -8,7 +8,7 @@
  */
 
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
-import { CharacterType, ResourceType, DiceType } from '@engine/index';
+import { CharacterType, ResourceType, DiceType } from '@/types/game-types';
 import * as THREE from 'three';
 
 // ============================================================================

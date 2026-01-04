@@ -6,7 +6,7 @@
  */
 
 import { useGameStore, selectSelectedCharacter } from '@/store/game-store';
-import { ActionType, CharacterType, ResourceType } from '@engine/index';
+import { CharacterType, ActionType, ResourceType } from '@/types/game-types';
 
 // Nombres amigables para tipos de personajes
 const CHARACTER_NAMES: Record<CharacterType, string> = {
@@ -45,7 +45,7 @@ export function CharacterPanel() {
       {/* Header */}
       <div className="flex justify-between items-start mb-3">
         <div>
-          <h3 className="text-lg font-bold">{CHARACTER_NAMES[character.type]}</h3>
+          <h3 className="text-lg font-bold">{CHARACTER_NAMES[character.type as CharacterType]}</h3>
           <p className="text-xs text-gray-400">{character.name}</p>
         </div>
         <button

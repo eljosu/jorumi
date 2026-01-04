@@ -8,7 +8,7 @@
 import { create } from 'zustand';
 import { devtools } from 'zustand/middleware';
 import { SocketClient, ConnectionStatus, RoomInfo, getSocketClient } from '../network/socket-client';
-import type { GameState, GameAction, GameEvent } from '@engine/index';
+import type { GameState, GameAction, GameEvent } from '@/types/game-types';
 import type { RoomPlayer } from '../../../server/src/types/messages';
 import { config } from '../config/environment';
 

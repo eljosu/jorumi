@@ -1,6 +1,12 @@
 /**
  * JORUMI - Zustand Game Store
  * 
+ * ⚠️ NOTA: Este store está DESHABILITADO para producción.
+ * En producción, el cliente usa SOLO network-store.ts para comunicarse con el servidor.
+ * El servidor es autoritativo y ejecuta el GameEngine.
+ * 
+ * Este archivo se mantiene para desarrollo futuro de modo single-player local.
+ * 
  * PRINCIPIO CLAVE: El motor de reglas es la ÚNICA fuente de verdad.
  * Este store actúa como ADAPTADOR entre el motor y la UI.
  * 
@@ -14,6 +20,10 @@
 
 import { create } from 'zustand';
 import { immer } from 'zustand/middleware/immer';
+
+// NOTA: Importaciones comentadas para evitar errores de build en producción
+// El cliente NO debe tener acceso directo al engine - solo vía servidor
+/*
 import {
   GameEngine,
   GameState,
@@ -26,6 +36,18 @@ import {
   DiceRollResult,
   ValidationResult,
 } from '@engine/index';
+*/
+
+// Types mínimos necesarios (duplicados temporalmente)
+type GameState = any;
+type GameAction = any;
+type ActionResult = any;
+type GameEvent = any;
+type CharacterId = string;
+type TileId = string;
+type GhettoId = string;
+type DiceRollResult = any;
+type ValidationResult = any;
 
 // ============================================================================
 // TIPOS DE UI STATE (NO pertenecen al motor)
@@ -69,7 +91,7 @@ interface UIState {
 
 interface GameStore {
   // === GAME STATE (from engine) ===
-  engine: GameEngine | null;
+  engine: any | null; // GameEngine deshabilitado en producción
   gameState: GameState | null;
   
   // === UI STATE ===
@@ -148,6 +170,11 @@ export const useGameStore = create<GameStore>()(
     // ========================================================================
     
     initializeEngine: (options = {}) => {
+      // DESHABILITADO: El cliente no debe crear GameEngine en producción
+      // El servidor es el que ejecuta el engine
+      console.warn('[Store] GameEngine disabled in production build. Use network-store for multiplayer.');
+      
+      /*
       const engine = new GameEngine({
         enableLogging: true,
         ...options,
@@ -156,6 +183,7 @@ export const useGameStore = create<GameStore>()(
       set({ engine });
       
       console.log('[Store] Engine initialized');
+      */
     },
     
     startGame: (playerNames, seed) => {

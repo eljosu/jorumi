@@ -9,7 +9,7 @@
  * - alien.currentTileId → Posición
  */
 
-import { Tile, TileId } from '@engine/index';
+import { Tile, TileId } from '@/types/game-types';
 import { hexToWorld } from '@/utils/coordinate-converter';
 import { useRef } from 'react';
 import { useFrame } from '@react-three/fiber';

@@ -10,7 +10,7 @@
  * - Esta utilidad es SOLO para visualización, NO afecta las reglas
  */
 
-import { HexCoordinates } from '@engine/index';
+import { HexCoordinates } from '@/types/game-types';
 import * as THREE from 'three';
 
 /**

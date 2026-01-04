@@ -15,7 +15,7 @@
  * - El motor determina si el movimiento es válido
  */
 
-import { Character, Tile, TileId } from '@engine/index';
+import { Character, Tile, TileId } from '@/types/game-types';
 import { hexToWorld } from '@/utils/coordinate-converter';
 import { useRef, useEffect, useState } from 'react';
 import { useFrame } from '@react-three/fiber';

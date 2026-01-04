@@ -7,7 +7,7 @@
 
 import React from 'react';
 import { useNetworkStore, useIsMyTurn, useMyRole, selectGameState } from '../../store/network-store';
-import { ActionType } from '@engine/index';
+import { ActionType } from '@/types/game-types';
 
 export const GameActions: React.FC = () => {
   const gameState = useNetworkStore(selectGameState);

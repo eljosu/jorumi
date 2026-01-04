@@ -14,14 +14,14 @@
  * - Los clicks se envían como acciones al store
  */
 
-import { useGameStore, selectGameState } from '@/store/game-store';
+import { useNetworkStore, selectGameState } from '@/store/network-store';
 import { HexTile } from './HexTile';
 import { CharacterMesh } from './CharacterMesh';
 import { Mothership } from './Mothership';
 
 export function GameBoard() {
-  // Leer estado del motor
-  const gameState = useGameStore(selectGameState);
+  // Leer estado del servidor
+  const gameState = useNetworkStore(selectGameState);
   
   // Si no hay juego iniciado, no renderizar nada
   if (!gameState) {

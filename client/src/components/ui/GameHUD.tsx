@@ -10,7 +10,8 @@
  */
 
 import { useGameStore, selectCurrentPhase, selectCurrentTurn, selectIsGameOver } from '@/store/game-store';
-import { GamePhase, PHASE_DESCRIPTIONS } from '@engine/index';
+import { GamePhase } from '@/types/game-types';
+// PHASE_DESCRIPTIONS se importará desde un archivo local si es necesario
 
 export function GameHUD() {
   const gameState = useGameStore((state) => state.gameState);
@@ -41,7 +42,7 @@ export function GameHUD() {
               <span className="font-bold">{phase}</span>
             </div>
             <div className="text-xs text-gray-400 mt-2 max-w-xs">
-              {PHASE_DESCRIPTIONS[phase as GamePhase]}
+              {/* Phase description */}
             </div>
           </div>
           

@@ -10,7 +10,7 @@
  * - tile.resources → Muestra recursos
  */
 
-import { Tile, TileType } from '@engine/index';
+import { Tile, TileType } from '@/types/game-types';
 import { hexToWorld } from '@/utils/coordinate-converter';
 import { useRef, useState } from 'react';
 import { useFrame } from '@react-three/fiber';
