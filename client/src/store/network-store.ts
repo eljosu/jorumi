@@ -127,8 +127,24 @@ export const useNetworkStore = create<NetworkStore>()(
         // Sala
         onRoomCreated: (roomId, playerId) => {
           console.log('[NetworkStore] Room created:', roomId);
+          const playerName = get().playerName || 'Player';
+          const player: RoomPlayer = {
+            id: playerId,
+            name: playerName,
+            isReady: true,
+            connectionId: playerId, // Provisional
+            connectedAt: Date.now(),
+          };
           set({
+            roomInfo: {
+              roomId,
+              playerId,
+              playerName,
+              players: [player],
+              gameState: null,
+            },
             playerId,
+            players: [player],
             isInRoom: true,
           });
         },
@@ -158,16 +174,30 @@ export const useNetworkStore = create<NetworkStore>()(
         
         onPlayerJoined: (player) => {
           console.log('[NetworkStore] Player joined:', player.name);
-          set((state) => ({
-            players: [...state.players, player],
-          }));
+          set((state) => {
+            const updatedPlayers = [...state.players, player];
+            return {
+              players: updatedPlayers,
+              roomInfo: state.roomInfo ? {
+                ...state.roomInfo,
+                players: updatedPlayers,
+              } : null,
+            };
+          });
         },
         
         onPlayerLeft: (playerId, playerName) => {
           console.log('[NetworkStore] Player left:', playerName);
-          set((state) => ({
-            players: state.players.filter(p => p.id !== playerId),
-          }));
+          set((state) => {
+            const updatedPlayers = state.players.filter(p => p.id !== playerId);
+            return {
+              players: updatedPlayers,
+              roomInfo: state.roomInfo ? {
+                ...state.roomInfo,
+                players: updatedPlayers,
+              } : null,
+            };
+          });
         },
         
         // Juego

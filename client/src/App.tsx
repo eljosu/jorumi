@@ -27,17 +27,22 @@ import { GameScene } from './components/scene/GameScene';
 import { GameHUD } from './components/ui/GameHUD';
 import { CharacterPanel } from './components/ui/CharacterPanel';
 import { StartMenu } from './components/ui/StartMenu';
+import { RoomLobby } from './components/multiplayer/RoomLobby';
 
 function App() {
   // Estado del juego (del servidor)
   const gameState = useNetworkStore((state) => state.gameState);
   const isConnected = useNetworkStore((state) => state.isConnected);
+  const isInRoom = useNetworkStore((state) => state.isInRoom);
   
   return (
     <div className="w-screen h-screen bg-black overflow-hidden">
-      {!isConnected || !gameState ? (
-        // No conectado o no hay juego activo → mostrar menú
+      {!isConnected || !isInRoom ? (
+        // No conectado o no en sala → mostrar menú
         <StartMenu />
+      ) : !gameState ? (
+        // En sala pero juego no iniciado → mostrar lobby
+        <RoomLobby />
       ) : (
         // Juego activo → mostrar escena + UI
         <>
