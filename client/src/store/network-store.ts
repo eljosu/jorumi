@@ -8,7 +8,7 @@
 import { create } from 'zustand';
 import { devtools } from 'zustand/middleware';
 import { SocketClient, ConnectionStatus, RoomInfo, getSocketClient } from '../network/socket-client';
-import type { GameState, GameAction, GameEvent } from '@/types/game-types';
+import type { GameState, GameAction, GameEvent, TileType, HexCoordinates } from '@/types/game-types';
 import type { RoomPlayer } from '../../../server/src/types/messages';
 import { config } from '../config/environment';
 import { deserializeGameState } from '../utils/game-state-serializer';
@@ -44,6 +44,9 @@ interface NetworkState {
   // ID del jugador local
   playerId: string | null;
   playerName: string | null;
+  
+  // UI State - Tile placement
+  selectedTileType: TileType | null;
 }
 
 /**
@@ -63,6 +66,10 @@ interface NetworkActions {
   // Acciones de juego
   sendAction: (action: GameAction) => void;
   requestSnapshot: () => void;
+  
+  // Tile placement
+  setSelectedTileType: (tileType: TileType | null) => void;
+  placeTile: (tileType: TileType, coordinates: HexCoordinates) => void;
   
   // Utilidades
   clearError: () => void;
@@ -277,6 +284,7 @@ export const useNetworkStore = create<NetworkStore>()(
         players: [],
         playerId: null,
         playerName: null,
+        selectedTileType: null,
         
         // Acciones
         connect: () => {
@@ -322,6 +330,35 @@ export const useNetworkStore = create<NetworkStore>()(
           client.requestSnapshot();
         },
         
+        // Tile placement
+        setSelectedTileType: (tileType) => {
+          console.log('[NetworkStore] Selected tile type:', tileType);
+          set({ selectedTileType: tileType });
+        },
+        
+        placeTile: (tileType, coordinates) => {
+          const { client, playerId, gameState } = get();
+          
+          if (!playerId || !gameState) {
+            console.error('[NetworkStore] Cannot place tile: no player or game state');
+            return;
+          }
+          
+          console.log('[NetworkStore] Placing tile:', tileType, 'at', coordinates);
+          
+          // Enviar acción PLACE_TILE al servidor
+          client.sendAction({
+            type: 'PLACE_TILE' as any,
+            playerId,
+            timestamp: Date.now(),
+            tileType,
+            coordinates,
+          });
+          
+          // Limpiar selección
+          set({ selectedTileType: null });
+        },
+        
         clearError: () => {
           set({ lastError: null, lastActionRejected: null });
         },
@@ -348,6 +385,7 @@ export const selectPlayers = (state: NetworkStore) => state.players;
 export const selectRoomInfo = (state: NetworkStore) => state.roomInfo;
 export const selectLastError = (state: NetworkStore) => state.lastError;
 export const selectEvents = (state: NetworkStore) => state.events;
+export const selectSelectedTileType = (state: NetworkStore) => state.selectedTileType;
 
 /**
  * Hook para detectar si es el turno del jugador local

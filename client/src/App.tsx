@@ -26,6 +26,7 @@ import { useNetworkStore } from './store/network-store';
 import { GameScene } from './components/scene/GameScene';
 import { GameHUD } from './components/ui/GameHUD';
 import { CharacterPanel } from './components/ui/CharacterPanel';
+import { TilePlacementPanel } from './components/ui/TilePlacementPanel';
 import { StartMenu } from './components/ui/StartMenu';
 import { RoomLobby } from './components/multiplayer/RoomLobby';
 
@@ -52,6 +53,7 @@ function App() {
           {/* UI Overlay (sobre la escena) */}
           <GameHUD />
           <CharacterPanel />
+          <TilePlacementPanel />
         </>
       )}
     </div>
