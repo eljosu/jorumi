@@ -14,6 +14,7 @@ export declare enum ClientMessageType {
     CREATE_ROOM = "CREATE_ROOM",
     JOIN_ROOM = "JOIN_ROOM",
     LEAVE_ROOM = "LEAVE_ROOM",
+    START_GAME = "START_GAME",
     PLAYER_ACTION = "PLAYER_ACTION",
     REQUEST_SNAPSHOT = "REQUEST_SNAPSHOT"
 }
@@ -61,6 +62,13 @@ export interface LeaveRoomMessage {
     roomId: RoomId;
 }
 /**
+ * Iniciar juego (solo host)
+ */
+export interface StartGameMessage {
+    type: ClientMessageType.START_GAME;
+    roomId: RoomId;
+}
+/**
  * Ejecutar acción de jugador
  * CRÍTICO: El servidor SIEMPRE valida antes de aplicar
  */
@@ -79,7 +87,7 @@ export interface RequestSnapshotMessage {
 /**
  * Tipo unión de mensajes del cliente
  */
-export type ClientMessage = CreateRoomMessage | JoinRoomMessage | LeaveRoomMessage | PlayerActionMessage | RequestSnapshotMessage;
+export type ClientMessage = CreateRoomMessage | JoinRoomMessage | LeaveRoomMessage | StartGameMessage | PlayerActionMessage | RequestSnapshotMessage;
 /**
  * Sala creada exitosamente
  */
@@ -247,6 +255,7 @@ export declare enum ErrorCode {
     ROOM_ALREADY_STARTED = "ROOM_ALREADY_STARTED",
     PLAYER_NOT_IN_ROOM = "PLAYER_NOT_IN_ROOM",
     PLAYER_NOT_AUTHORIZED = "PLAYER_NOT_AUTHORIZED",
+    UNAUTHORIZED = "UNAUTHORIZED",
     INVALID_PLAYER_NAME = "INVALID_PLAYER_NAME",
     ACTION_NOT_ALLOWED = "ACTION_NOT_ALLOWED",
     INVALID_ACTION = "INVALID_ACTION",

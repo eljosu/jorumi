@@ -15,6 +15,7 @@ export function RoomLobby() {
   const players = useNetworkStore((state) => state.players);
   const playerId = useNetworkStore((state) => state.playerId);
   const leaveRoom = useNetworkStore((state) => state.leaveRoom);
+  const startGame = useNetworkStore((state) => state.startGame);
   const gameState = useNetworkStore((state) => state.gameState);
   
   if (!roomInfo) {
@@ -36,9 +37,8 @@ export function RoomLobby() {
   };
   
   const handleStartGame = () => {
-    // TODO: Implementar inicio de juego
-    console.log('[RoomLobby] Start game requested');
-    // Aquí se enviará un mensaje al servidor para iniciar el juego
+    console.log('[RoomLobby] Start game button clicked');
+    startGame();
   };
   
   const handleLeaveRoom = () => {

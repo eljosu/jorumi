@@ -16,6 +16,7 @@ var ClientMessageType;
     ClientMessageType["CREATE_ROOM"] = "CREATE_ROOM";
     ClientMessageType["JOIN_ROOM"] = "JOIN_ROOM";
     ClientMessageType["LEAVE_ROOM"] = "LEAVE_ROOM";
+    ClientMessageType["START_GAME"] = "START_GAME";
     // Acciones de juego
     ClientMessageType["PLAYER_ACTION"] = "PLAYER_ACTION";
     // Sincronización
@@ -59,6 +60,7 @@ var ErrorCode;
     // Errores de jugador
     ErrorCode["PLAYER_NOT_IN_ROOM"] = "PLAYER_NOT_IN_ROOM";
     ErrorCode["PLAYER_NOT_AUTHORIZED"] = "PLAYER_NOT_AUTHORIZED";
+    ErrorCode["UNAUTHORIZED"] = "UNAUTHORIZED";
     ErrorCode["INVALID_PLAYER_NAME"] = "INVALID_PLAYER_NAME";
     // Errores de acción
     ErrorCode["ACTION_NOT_ALLOWED"] = "ACTION_NOT_ALLOWED";

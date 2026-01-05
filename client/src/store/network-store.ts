@@ -57,6 +57,7 @@ interface NetworkActions {
   createRoom: (playerName: string, roomConfig?: any) => void;
   joinRoom: (roomId: string, playerName: string) => void;
   leaveRoom: () => void;
+  startGame: () => void;
   
   // Acciones de juego
   sendAction: (action: GameAction) => void;
@@ -299,6 +300,12 @@ export const useNetworkStore = create<NetworkStore>()(
         leaveRoom: () => {
           const { client } = get();
           client.leaveRoom();
+        },
+        
+        startGame: () => {
+          const { client } = get();
+          console.log('[NetworkStore] Requesting to start game');
+          client.startGame();
         },
         
         sendAction: (action) => {

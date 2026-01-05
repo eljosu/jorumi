@@ -133,7 +133,7 @@ class GameRoom {
     startGame() {
         if (this.status !== RoomStatus.WAITING) {
             this.log('Cannot start game - invalid status', { status: this.status });
-            return;
+            return false;
         }
         this.status = RoomStatus.STARTING;
         this.log('Starting game...');
@@ -153,6 +153,7 @@ class GameRoom {
             players: playerNames,
             seed: this.config.gameSeed,
         });
+        return true;
     }
     /**
      * Asigna roles a jugadores

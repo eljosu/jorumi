@@ -131,6 +131,9 @@ class SocketServer {
             case messages_1.ClientMessageType.LEAVE_ROOM:
                 this.handleLeaveRoom(socket, connection, message);
                 break;
+            case messages_1.ClientMessageType.START_GAME:
+                this.handleStartGame(socket, connection, message);
+                break;
             case messages_1.ClientMessageType.PLAYER_ACTION:
                 this.handlePlayerAction(socket, connection, message);
                 break;
@@ -306,6 +309,59 @@ class SocketServer {
         connection.roomId = undefined;
         connection.playerId = undefined;
         connection.playerName = undefined;
+    }
+    handleStartGame(socket, connection, message) {
+        console.log('[SocketServer] handleStartGame called');
+        if (!connection.playerId || !connection.roomId) {
+            console.error('[SocketServer] Player not in room');
+            this.sendError(socket, messages_1.ErrorCode.PLAYER_NOT_IN_ROOM, 'Not in a room');
+            return;
+        }
+        const room = this.roomManager.getRoom(connection.roomId);
+        if (!room) {
+            console.error('[SocketServer] Room not found:', connection.roomId);
+            this.sendError(socket, messages_1.ErrorCode.ROOM_NOT_FOUND, 'Room not found');
+            return;
+        }
+        // Verificar que sea el host (primer jugador)
+        const players = room.getAllPlayers();
+        if (players.length === 0 || players[0].id !== connection.playerId) {
+            console.error('[SocketServer] Only host can start game');
+            this.sendError(socket, messages_1.ErrorCode.UNAUTHORIZED, 'Only the host can start the game');
+            return;
+        }
+        // Verificar mínimo de jugadores (2 para jugar)
+        if (players.length < 2) {
+            console.error('[SocketServer] Not enough players:', players.length);
+            this.sendError(socket, messages_1.ErrorCode.INVALID_GAME_STATE, 'Need at least 2 players to start');
+            return;
+        }
+        console.log('[SocketServer] Starting game with', players.length, 'players');
+        // Iniciar juego en la sala
+        const success = room.startGame();
+        if (!success) {
+            console.error('[SocketServer] Failed to start game');
+            this.sendError(socket, messages_1.ErrorCode.INTERNAL_ERROR, 'Could not start game');
+            return;
+        }
+        const gameState = room.getGameState();
+        if (!gameState) {
+            console.error('[SocketServer] No game state after starting');
+            this.sendError(socket, messages_1.ErrorCode.INTERNAL_ERROR, 'Game state not available');
+            return;
+        }
+        console.log('[SocketServer] Game started successfully, broadcasting to room');
+        // Broadcast GAME_STARTED a todos los jugadores de la sala
+        this.broadcastToRoom(connection.roomId, {
+            type: messages_1.ServerMessageType.GAME_STARTED,
+            roomId: connection.roomId,
+            gameState,
+        });
+        this.log('Game started', {
+            roomId: connection.roomId,
+            players: players.length,
+            gameId: gameState.gameId,
+        });
     }
     handlePlayerAction(socket, connection, message) {
         if (!connection.playerId || !connection.roomId) {

@@ -162,10 +162,10 @@ export class GameRoom {
    * Inicia la partida
    * CRÍTICO: Ejecuta el motor de reglas en el servidor
    */
-  private startGame(): void {
+  public startGame(): boolean {
     if (this.status !== RoomStatus.WAITING) {
       this.log('Cannot start game - invalid status', { status: this.status });
-      return;
+      return false;
     }
     
     this.status = RoomStatus.STARTING;
@@ -191,6 +191,8 @@ export class GameRoom {
       players: playerNames,
       seed: this.config.gameSeed,
     });
+    
+    return true;
   }
 
   /**

@@ -68,7 +68,7 @@ export declare class GameRoom {
      * Inicia la partida
      * CRÍTICO: Ejecuta el motor de reglas en el servidor
      */
-    private startGame;
+    startGame(): boolean;
     /**
      * Asigna roles a jugadores
      * En JORUMI: primer jugador = HUMAN, segundo = ALIEN

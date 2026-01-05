@@ -42,6 +42,7 @@ export declare class SocketServer {
     private handleCreateRoom;
     private handleJoinRoom;
     private handleLeaveRoom;
+    private handleStartGame;
     private handlePlayerAction;
     private handleRequestSnapshot;
     /**

@@ -437,6 +437,23 @@ export class SocketClient {
   }
 
   /**
+   * Inicia el juego (solo host)
+   */
+  startGame(): void {
+    if (!this.currentRoom) {
+      console.warn('[SocketClient] Not in a room');
+      return;
+    }
+    
+    console.log('[SocketClient] Requesting to start game in room:', this.currentRoom.roomId);
+    
+    this.send({
+      type: ClientMessageType.START_GAME,
+      roomId: this.currentRoom.roomId,
+    } as ClientMessage);
+  }
+
+  /**
    * Envía una acción de jugador al servidor
    * CRÍTICO: El servidor validará y ejecutará la acción
    */

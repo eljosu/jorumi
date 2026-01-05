@@ -22,6 +22,7 @@ export enum ClientMessageType {
   CREATE_ROOM = 'CREATE_ROOM',
   JOIN_ROOM = 'JOIN_ROOM',
   LEAVE_ROOM = 'LEAVE_ROOM',
+  START_GAME = 'START_GAME',
   
   // Acciones de juego
   PLAYER_ACTION = 'PLAYER_ACTION',
@@ -91,6 +92,14 @@ export interface LeaveRoomMessage {
 }
 
 /**
+ * Iniciar juego (solo host)
+ */
+export interface StartGameMessage {
+  type: ClientMessageType.START_GAME;
+  roomId: RoomId;
+}
+
+/**
  * Ejecutar acción de jugador
  * CRÍTICO: El servidor SIEMPRE valida antes de aplicar
  */
@@ -115,6 +124,7 @@ export type ClientMessage =
   | CreateRoomMessage
   | JoinRoomMessage
   | LeaveRoomMessage
+  | StartGameMessage
   | PlayerActionMessage
   | RequestSnapshotMessage;
 
@@ -329,6 +339,7 @@ export enum ErrorCode {
   // Errores de jugador
   PLAYER_NOT_IN_ROOM = 'PLAYER_NOT_IN_ROOM',
   PLAYER_NOT_AUTHORIZED = 'PLAYER_NOT_AUTHORIZED',
+  UNAUTHORIZED = 'UNAUTHORIZED',
   INVALID_PLAYER_NAME = 'INVALID_PLAYER_NAME',
   
   // Errores de acción
