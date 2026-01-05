@@ -20,14 +20,14 @@ interface HexTileProps {
   tile: Tile;
 }
 
-// Colores por tipo de loseta
+// Colores por tipo de loseta (más brillantes y visibles)
 const TILE_COLORS: Record<TileType, string> = {
-  [TileType.GHETTO]: '#8B4513',
-  [TileType.FOREST]: '#228B22',
-  [TileType.MINE]: '#696969',
-  [TileType.RUINS]: '#A0522D',
-  [TileType.ALIEN_SHIP]: '#4B0082',
-  [TileType.WASTELAND]: '#8B7355',
+  [TileType.GHETTO]: '#D2691E',      // Chocolate claro
+  [TileType.FOREST]: '#32CD32',      // Verde lima
+  [TileType.MINE]: '#A9A9A9',        // Gris claro
+  [TileType.RUINS]: '#CD853F',       // Perú (marrón anaranjado)
+  [TileType.ALIEN_SHIP]: '#8B00FF',  // Violeta brillante
+  [TileType.WASTELAND]: '#DAA520',   // Dorado oscuro
 };
 
 export function HexTile({ tile }: HexTileProps) {
@@ -72,22 +72,25 @@ export function HexTile({ tile }: HexTileProps) {
         onClick={handleClick}
         onPointerOver={() => setHovered(true)}
         onPointerOut={() => setHovered(false)}
+        castShadow
         receiveShadow
       >
-        <cylinderGeometry args={[1, 1, 0.2, 6]} />
+        <cylinderGeometry args={[1, 1, 0.3, 6]} />
         <meshStandardMaterial
           color={color}
           opacity={isDestroyed ? 0.3 : 1.0}
           transparent={isDestroyed}
-          emissive={hovered ? '#ffffff' : '#000000'}
-          emissiveIntensity={hovered ? 0.2 : 0}
+          emissive={hovered ? '#ffff88' : '#000000'}
+          emissiveIntensity={hovered ? 0.3 : 0}
+          roughness={0.7}
+          metalness={0.1}
         />
       </mesh>
       
-      {/* Borde del hexágono */}
-      <lineSegments position={[0, 0.11, 0]}>
-        <edgesGeometry args={[new THREE.CylinderGeometry(1, 1, 0.2, 6)]} />
-        <lineBasicMaterial color="#000000" linewidth={2} />
+      {/* Borde del hexágono (más visible) */}
+      <lineSegments position={[0, 0.16, 0]}>
+        <edgesGeometry args={[new THREE.CylinderGeometry(1, 1, 0.3, 6)]} />
+        <lineBasicMaterial color="#222222" linewidth={3} />
       </lineSegments>
       
       {/* TODO: Renderizar edificio si existe */}

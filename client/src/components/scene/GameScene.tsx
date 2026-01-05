@@ -23,8 +23,8 @@ export function GameScene() {
     <div className="w-full h-full">
       <Canvas
         camera={{
-          position: [15, 15, 15],
-          fov: 50,
+          position: [0, 12, 12],  // Más cerca y centrado
+          fov: 60,
           near: 0.1,
           far: 1000,
         }}
@@ -32,7 +32,7 @@ export function GameScene() {
         gl={{
           antialias: true,
           toneMapping: THREE.ACESFilmicToneMapping,
-          toneMappingExposure: 1.0,
+          toneMappingExposure: 1.2,  // Más brillo
         }}
       >
         {/* Lighting */}

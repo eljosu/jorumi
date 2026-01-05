@@ -49,8 +49,15 @@ export function GameHUD() {
           {!isGameOver && (
             <button
               onClick={() => {
-                // TODO: Implementar acción de avanzar fase cuando esté disponible
-                console.log('Advance phase requested');
+                console.log('[GameHUD] Advance Phase clicked');
+                const playerId = useNetworkStore.getState().playerId;
+                if (playerId) {
+                  sendAction({
+                    type: 'ADVANCE_PHASE' as any,
+                    playerId,
+                    timestamp: Date.now(),
+                  });
+                }
               }}
               className="mt-4 w-full bg-jorumi-primary hover:bg-blue-600 text-white px-4 py-2 rounded transition-colors"
             >

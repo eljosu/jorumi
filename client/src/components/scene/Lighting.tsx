@@ -7,13 +7,13 @@
 export function Lighting() {
   return (
     <>
-      {/* Luz ambiente base */}
-      <ambientLight intensity={0.4} color="#b0c4de" />
+      {/* Luz ambiente base (más brillante) */}
+      <ambientLight intensity={0.6} color="#d0e4f7" />
       
       {/* Luz direccional principal (sol) */}
       <directionalLight
         position={[10, 15, 5]}
-        intensity={1.2}
+        intensity={1.5}
         color="#ffffff"
         castShadow
         shadow-mapSize-width={2048}
