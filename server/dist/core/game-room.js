@@ -139,18 +139,46 @@ class GameRoom {
         this.log('Starting game...');
         // Asignar roles a jugadores
         this.assignRoles();
-        // Obtener nombres de jugadores en orden
-        const playerNames = this.getAllPlayers().map(p => p.name);
+        // Obtener jugadores en orden
+        const roomPlayers = this.getAllPlayers();
+        const playerNames = roomPlayers.map(p => p.name);
         // Iniciar motor de reglas
-        const gameState = this.engine.startGame({
+        this.engine.startGame({
             playerNames,
             seed: this.config.gameSeed,
         });
+        // CRITICAL FIX: Mapear IDs del engine a IDs reales del servidor
+        // El engine genera sus propios IDs, pero necesitamos usar los IDs de la sala
+        const gameState = this.engine.getState();
+        const enginePlayers = Array.from(gameState.players.values());
+        // Crear mapa de IDs: engine ID -> real room ID
+        const playerIdMap = new Map();
+        enginePlayers.forEach((enginePlayer, index) => {
+            if (roomPlayers[index]) {
+                playerIdMap.set(enginePlayer.id, roomPlayers[index].id);
+            }
+        });
+        // Actualizar players con IDs reales
+        const mappedPlayers = new Map();
+        enginePlayers.forEach((enginePlayer, index) => {
+            const realId = roomPlayers[index].id;
+            mappedPlayers.set(realId, {
+                ...enginePlayer,
+                id: realId,
+            });
+        });
+        // Actualizar el estado en el engine con IDs reales
+        this.engine.state = {
+            ...gameState,
+            players: mappedPlayers,
+            currentPlayerId: roomPlayers[0].id, // Primer jugador es quien inicia
+        };
         this.status = RoomStatus.IN_PROGRESS;
         this.lastActivityAt = Date.now();
         this.log('Game started', {
             gameId: gameState.gameId,
-            players: playerNames,
+            players: roomPlayers.map(p => ({ id: p.id, name: p.name, role: p.role })),
+            currentPlayerId: roomPlayers[0].id,
             seed: this.config.gameSeed,
         });
         return true;
