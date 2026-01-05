@@ -135,6 +135,10 @@ export class SocketClient {
       reconnection: this.options.reconnection,
       reconnectionAttempts: this.options.reconnectionAttempts,
       reconnectionDelay: this.options.reconnectionDelay,
+      transports: ['websocket', 'polling'], // Intentar websocket primero, luego polling
+      upgrade: false, // No intentar upgrade durante la conexión
+      timeout: 20000, // 20 segundos de timeout
+      forceNew: true, // Forzar nueva conexión
     });
     
     this.setupEventHandlers();

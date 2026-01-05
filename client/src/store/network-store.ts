@@ -87,9 +87,9 @@ export const useNetworkStore = create<NetworkStore>()(
       const client = getSocketClient({
         serverUrl: config.serverUrl,
         autoConnect: false,
-        reconnection: config.socket.reconnection,
-        reconnectionAttempts: config.socket.reconnectionAttempts,
-        reconnectionDelay: config.socket.reconnectionDelay,
+        reconnection: true,
+        reconnectionAttempts: 10, // Más intentos
+        reconnectionDelay: 2000, // Más tiempo entre intentos
       });
       
       // Configurar callbacks
