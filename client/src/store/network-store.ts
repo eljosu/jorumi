@@ -11,6 +11,7 @@ import { SocketClient, ConnectionStatus, RoomInfo, getSocketClient } from '../ne
 import type { GameState, GameAction, GameEvent } from '@/types/game-types';
 import type { RoomPlayer } from '../../../server/src/types/messages';
 import { config } from '../config/environment';
+import { deserializeGameState } from '../utils/game-state-serializer';
 
 /**
  * Estado del store de red
@@ -152,13 +153,14 @@ export const useNetworkStore = create<NetworkStore>()(
         
         onRoomJoined: (info) => {
           console.log('[NetworkStore] Room joined:', info.roomId);
+          const deserializedState = info.gameState ? deserializeGameState(info.gameState) : null;
           set({
             roomInfo: info,
             isInRoom: true,
             playerId: info.playerId,
             playerName: info.playerName,
             players: info.players,
-            gameState: info.gameState,
+            gameState: deserializedState,
           });
         },
         
@@ -204,16 +206,18 @@ export const useNetworkStore = create<NetworkStore>()(
         // Juego
         onGameStarted: (gameState) => {
           console.log('[NetworkStore] Game started');
+          const deserializedState = deserializeGameState(gameState);
           set({
-            gameState,
+            gameState: deserializedState,
             events: [],
           });
         },
         
         onGameStateUpdate: (gameState, events) => {
           console.log('[NetworkStore] Game state updated');
+          const deserializedState = deserializeGameState(gameState);
           set((state) => ({
-            gameState,
+            gameState: deserializedState,
             events: [...state.events, ...events],
           }));
         },

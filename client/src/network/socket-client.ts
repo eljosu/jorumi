@@ -238,6 +238,10 @@ export class SocketClient {
         this.handlePlayerLeft(message);
         break;
         
+      case 'PLAYER_ROLE_ASSIGNED':
+        this.handlePlayerRoleAssigned(message);
+        break;
+        
       case 'GAME_STARTED':
         this.handleGameStarted(message);
         break;
@@ -328,6 +332,12 @@ export class SocketClient {
     }
     
     this.callbacks.onPlayerLeft?.(message.playerId, message.playerName);
+  }
+
+  private handlePlayerRoleAssigned(message: any): void {
+    console.log('[SocketClient] Player role assigned:', message.playerId, message.role);
+    // TODO: Actualizar el rol del jugador en la UI si es necesario
+    // Por ahora solo lo logueamos
   }
 
   private handleGameStarted(message: any): void {
