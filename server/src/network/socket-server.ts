@@ -205,29 +205,42 @@ export class SocketServer {
   // ==========================================================================
 
   private handleCreateRoom(socket: Socket, connection: ClientConnection, message: any): void {
+    console.log('[SocketServer] handleCreateRoom called with:', message);
+    
     // Validar nombre de jugador
     if (!message.playerName || message.playerName.trim().length === 0) {
+      console.error('[SocketServer] Invalid player name');
       this.sendError(socket, ErrorCode.INVALID_PLAYER_NAME, 'Player name is required');
       return;
     }
     
+    console.log('[SocketServer] Creating room...');
+    
     // Crear sala
     const room = this.roomManager.createRoom(message.roomConfig);
     if (!room) {
+      console.error('[SocketServer] Failed to create room');
       this.sendError(socket, ErrorCode.INTERNAL_ERROR, 'Could not create room');
       return;
     }
     
+    console.log('[SocketServer] Room created with ID:', room.id);
+    
     // Crear ID de jugador
     const playerId = nanoid(10);
+    console.log('[SocketServer] Generated player ID:', playerId);
     
     // Agregar jugador a la sala
+    console.log('[SocketServer] Adding player to room...');
     const player = room.addPlayer(playerId, message.playerName, connection.id);
     if (!player) {
+      console.error('[SocketServer] Failed to add player to room');
       this.sendError(socket, ErrorCode.INTERNAL_ERROR, 'Could not add player to room');
       this.roomManager.deleteRoom(room.id);
       return;
     }
+    
+    console.log('[SocketServer] Player added successfully');
     
     // Actualizar conexión
     connection.playerId = playerId;
@@ -236,14 +249,18 @@ export class SocketServer {
     
     // Unir socket a sala de Socket.IO
     socket.join(room.id);
+    console.log('[SocketServer] Socket joined room:', room.id);
     
     // Enviar confirmación
-    this.send(socket, {
+    const response = {
       type: ServerMessageType.ROOM_CREATED,
       roomId: room.id,
       playerId,
       playerName: message.playerName,
-    });
+    } as ServerMessage;
+    
+    console.log('[SocketServer] Sending ROOM_CREATED message:', response);
+    this.send(socket, response);
     
     this.log('Room created', {
       roomId: room.id,
@@ -487,7 +504,9 @@ export class SocketServer {
    * Envía mensaje a un socket específico
    */
   private send(socket: Socket, message: ServerMessage): void {
+    console.log('[SocketServer] Emitting message to socket:', message.type);
     socket.emit('message', message);
+    console.log('[SocketServer] Message emitted successfully');
   }
 
   /**
