@@ -20,7 +20,6 @@ import { hexToWorld } from '@/utils/coordinate-converter';
 import { useRef, useEffect, useState } from 'react';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
-import { useGameStore, useUIActions } from '@/store/game-store';
 
 interface CharacterMeshProps {
   character: Character;
@@ -45,10 +44,7 @@ export function CharacterMesh({ character, tiles }: CharacterMeshProps) {
   const [animProgress, setAnimProgress] = useState(0);
   
   // UI state
-  const selectedCharacterId = useGameStore((state) => state.uiState.selectedCharacterId);
-  const { selectCharacter } = useUIActions();
-  
-  const isSelected = selectedCharacterId === character.id;
+  const [isSelected, setIsSelected] = useState(false);
   
   // Obtener posición actual
   const currentTile = character.tileId ? tiles.get(character.tileId) : null;
@@ -115,7 +111,8 @@ export function CharacterMesh({ character, tiles }: CharacterMeshProps) {
   // Click handler
   const handleClick = (e: any) => {
     e.stopPropagation();
-    selectCharacter(character.id);
+    setIsSelected(!isSelected);
+    console.log('[CharacterMesh] Selected character:', character.id);
   };
   
   // Color basado en estado

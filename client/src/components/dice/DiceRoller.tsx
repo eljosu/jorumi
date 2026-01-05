@@ -16,10 +16,9 @@
  * 5. UI anima el dado y muestra el resultado calculado por el motor
  */
 
-import { useRef, useState, useEffect } from 'react';
+import { useRef, useState } from 'react';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
-import { useGameStore } from '@/store/game-store';
 
 interface DiceRollerProps {
   onRollComplete?: (result: number) => void;
@@ -110,12 +109,6 @@ export function DiceRoller({ onRollComplete }: DiceRollerProps) {
     }
   });
   
-  // Exponer método para que el componente padre pueda disparar el roll
-  useEffect(() => {
-    // Aquí podrías subscribirte a eventos del store
-    // Por ahora, lo dejamos como ejemplo
-  }, []);
-  
   return (
     <group ref={diceRef} position={[0, 1, 0]}>
       {/* Dado simplificado (cubo) */}
@@ -152,31 +145,25 @@ function getDiceRotationForValue(value: number): THREE.Euler {
 }
 
 /**
- * Hook para usar el DiceRoller desde componentes React
+ * Hook para usar el DiceRoller desde componentes React (Cliente-Servidor)
+ * 
+ * NOTA: En producción, el servidor calcula los resultados de dados
+ * El cliente solo recibe y anima los resultados
  */
 export function useDiceRoll() {
-  const engine = useGameStore((state) => state.engine);
-  const gameState = useGameStore((state) => state.gameState);
-  
   /**
-   * Roll de dado integrado con el motor
+   * Roll de dado - en cliente-servidor, esto enviaría una petición al servidor
+   * El servidor calcularía el resultado de forma determinista
    */
   const rollDice = (diceType: string): number | null => {
-    if (!engine || !gameState) {
-      console.error('[useDiceRoll] Engine or game state not available');
-      return null;
-    }
+    console.warn('[useDiceRoll] Client-server mode: dice rolls handled by server');
     
-    // El motor tiene un sistema de dados determinista
-    // Aquí lo usaríamos así:
-    // const result = engine.rollDice(diceType);
+    // En producción, esto sería una acción enviada al servidor:
+    // sendAction({ type: 'ROLL_DICE', diceType });
     
-    // Por ahora, placeholder
-    const result = Math.floor(Math.random() * 6) + 1;
+    // El servidor respondería con el resultado y el cliente lo animaría
     
-    console.log('[useDiceRoll] Dice rolled:', diceType, '→', result);
-    
-    return result;
+    return null;
   };
   
   return { rollDice };

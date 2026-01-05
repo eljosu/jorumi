@@ -3,24 +3,23 @@
  * 
  * Heads-Up Display principal del juego
  * 
- * ARQUITECTURA:
- * - Lee GameState para mostrar información
- * - Botones disparan acciones al store
+ * ARQUITECTURA (Cliente-Servidor):
+ * - Lee GameState del servidor
+ * - Botones envían acciones al servidor
  * - NO modifica el estado directamente
  */
 
-import { useGameStore, selectCurrentPhase, selectCurrentTurn, selectIsGameOver } from '@/store/game-store';
+import { useNetworkStore } from '@/store/network-store';
 import { GamePhase } from '@/types/game-types';
-// PHASE_DESCRIPTIONS se importará desde un archivo local si es necesario
 
 export function GameHUD() {
-  const gameState = useGameStore((state) => state.gameState);
-  const phase = useGameStore(selectCurrentPhase);
-  const turn = useGameStore(selectCurrentTurn);
-  const isGameOver = useGameStore(selectIsGameOver);
-  const advancePhase = useGameStore((state) => state.advancePhase);
-  const notification = useGameStore((state) => state.uiState.notification);
-  const error = useGameStore((state) => state.uiState.error);
+  const gameState = useNetworkStore((state) => state.gameState);
+  const sendAction = useNetworkStore((state) => state.sendAction);
+  const lastError = useNetworkStore((state) => state.lastError);
+  
+  const phase = gameState?.phase;
+  const turn = gameState?.turn;
+  const isGameOver = gameState?.gameOver || false;
   
   if (!gameState) {
     return null;
@@ -49,7 +48,10 @@ export function GameHUD() {
           {/* Botón avanzar fase */}
           {!isGameOver && (
             <button
-              onClick={advancePhase}
+              onClick={() => {
+                // TODO: Implementar acción de avanzar fase cuando esté disponible
+                console.log('Advance phase requested');
+              }}
               className="mt-4 w-full bg-jorumi-primary hover:bg-blue-600 text-white px-4 py-2 rounded transition-colors"
             >
               Advance Phase
@@ -65,15 +67,9 @@ export function GameHUD() {
         
         {/* Panel derecho - Notificaciones */}
         <div className="pointer-events-none">
-          {notification && (
-            <div className="bg-green-600 bg-opacity-90 text-white px-6 py-3 rounded-lg shadow-lg mb-2 animate-fade-in">
-              {notification}
-            </div>
-          )}
-          
-          {error && (
+          {lastError && (
             <div className="bg-red-600 bg-opacity-90 text-white px-6 py-3 rounded-lg shadow-lg animate-fade-in">
-              {error}
+              {lastError}
             </div>
           )}
         </div>

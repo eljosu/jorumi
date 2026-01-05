@@ -1,48 +1,42 @@
 /**
  * JORUMI - Main Application Component
  * 
- * ARQUITECTURA DE INTEGRACIÓN:
+ * ARQUITECTURA DE INTEGRACIÓN (MULTIPLAYER):
  * 
  * App
- *  ├─ Engine Sync (inicialización del motor)
+ *  ├─ Network Connection (conecta al servidor)
  *  ├─ Start Menu (si no hay juego)
  *  └─ Game (si hay juego activo)
  *      ├─ GameScene (Three.js / R3F)
- *      │   └─ GameBoard (lee GameState, renderiza 3D)
+ *      │   └─ GameBoard (lee GameState del servidor)
  *      └─ UI Overlay
  *          ├─ GameHUD
  *          └─ CharacterPanel
  * 
- * FLUJO DE DATOS:
+ * FLUJO DE DATOS (Cliente-Servidor):
  * 1. Usuario interactúa con UI o escena 3D
- * 2. Componente dispara acción al store
- * 3. Store valida y envía acción al motor
- * 4. Motor aplica reglas y retorna nuevo estado
- * 5. Store actualiza y notifica a React
- * 6. Componentes re-renderizan reactivamente
+ * 2. Componente dispara acción al network-store
+ * 3. Network-store envía acción al servidor
+ * 4. Servidor ejecuta GameEngine y valida
+ * 5. Servidor retorna nuevo estado a todos los clientes
+ * 6. Componentes re-renderizan con estado del servidor
  */
 
-import { useGameStore } from './store/game-store';
-import { useEngineSync, useAutoSave } from './hooks/useEngineSync';
+import { useNetworkStore } from './store/network-store';
 import { GameScene } from './components/scene/GameScene';
 import { GameHUD } from './components/ui/GameHUD';
 import { CharacterPanel } from './components/ui/CharacterPanel';
 import { StartMenu } from './components/ui/StartMenu';
 
 function App() {
-  // Inicializar motor
-  useEngineSync();
-  
-  // Auto-save cada 30 segundos
-  useAutoSave(30000);
-  
-  // Estado del juego
-  const gameState = useGameStore((state) => state.gameState);
+  // Estado del juego (del servidor)
+  const gameState = useNetworkStore((state) => state.gameState);
+  const isConnected = useNetworkStore((state) => state.isConnected);
   
   return (
     <div className="w-screen h-screen bg-black overflow-hidden">
-      {!gameState ? (
-        // No hay juego activo → mostrar menú
+      {!isConnected || !gameState ? (
+        // No conectado o no hay juego activo → mostrar menú
         <StartMenu />
       ) : (
         // Juego activo → mostrar escena + UI

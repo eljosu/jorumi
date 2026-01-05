@@ -15,7 +15,6 @@ import { hexToWorld } from '@/utils/coordinate-converter';
 import { useRef, useState } from 'react';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
-import { useGameStore, useUIActions } from '@/store/game-store';
 
 interface HexTileProps {
   tile: Tile;
@@ -34,25 +33,18 @@ const TILE_COLORS: Record<TileType, string> = {
 export function HexTile({ tile }: HexTileProps) {
   const meshRef = useRef<THREE.Mesh>(null);
   const [hovered, setHovered] = useState(false);
-  
-  // UI state
-  const selectedTileId = useGameStore((state) => state.uiState.selectedTileId);
-  const validMoves = useGameStore((state) => state.uiState.validMoves);
-  const { selectTile } = useUIActions();
+  const [selected, setSelected] = useState(false);
   
   // Convertir coordenadas hexagonales a mundo 3D
   const position = hexToWorld(tile.coordinates, 0);
   
   // Estado visual
-  const isSelected = selectedTileId === tile.id;
-  const isValidMove = validMoves.includes(tile.id);
   const isDestroyed = tile.destroyed;
   
   // Color basado en estado
   let color = TILE_COLORS[tile.type];
   if (isDestroyed) color = '#333333';
-  if (isValidMove) color = '#00FF00';
-  if (isSelected) color = '#FFFF00';
+  if (selected) color = '#FFFF00';
   
   // Animación de hover
   useFrame(() => {
@@ -66,9 +58,9 @@ export function HexTile({ tile }: HexTileProps) {
   // Click handler
   const handleClick = (e: any) => {
     e.stopPropagation();
-    selectTile(tile.id);
+    setSelected(!selected);
     
-    // Aquí podrías disparar una acción al motor si es necesario
+    // TODO: Enviar acción al servidor si es necesario
     // Por ejemplo, si hay un personaje seleccionado y este es un movimiento válido
   };
   

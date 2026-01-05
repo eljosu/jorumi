@@ -1,58 +1,43 @@
 /**
- * JORUMI - Engine Sync Hook
+ * JORUMI - Network Sync Hook (Cliente-Servidor)
  * 
- * Hook que sincroniza el motor de reglas con React
- * Maneja el ciclo de vida del motor y la sincronización de estado
+ * Hook que maneja la conexión con el servidor
+ * En producción, el servidor ejecuta el GameEngine (autoritativo)
  */
 
 import { useEffect, useRef } from 'react';
-import { useGameStore } from '@/store/game-store';
+import { useNetworkStore } from '@/store/network-store';
 
 /**
- * Hook principal para inicializar y sincronizar el motor
+ * Hook para conectar automáticamente al servidor
  * 
- * Uso:
- * ```tsx
- * function App() {
- *   useEngineSync();
- *   // ... resto del componente
- * }
- * ```
+ * NOTA: Ya no se usa en producción porque la conexión se maneja
+ * desde el StartMenu cuando el usuario crea o une una sala
  */
 export function useEngineSync() {
-  const initializeEngine = useGameStore((state) => state.initializeEngine);
-  const initialized = useRef(false);
-  
-  useEffect(() => {
-    if (!initialized.current) {
-      initializeEngine({
-        enableLogging: true,
-      });
-      initialized.current = true;
-    }
-  }, [initializeEngine]);
+  // Este hook ahora está vacío en producción
+  // La conexión se maneja manualmente desde StartMenu
+  console.log('[useEngineSync] Client-server mode: connection handled by StartMenu');
 }
 
 /**
  * Hook para auto-save periódico
+ * 
+ * NOTA: En cliente-servidor, el servidor maneja el guardado
+ * Este hook está deshabilitado en producción
  */
 export function useAutoSave(intervalMs: number = 30000) {
-  const saveGame = useGameStore((state) => state.saveGame);
-  const gameState = useGameStore((state) => state.gameState);
+  const gameState = useNetworkStore((state) => state.gameState);
   
   useEffect(() => {
     if (!gameState) return;
     
-    const interval = setInterval(() => {
-      const saved = saveGame();
-      if (saved) {
-        localStorage.setItem('jorumi-autosave', saved);
-        console.log('[AutoSave] Game saved');
-      }
-    }, intervalMs);
+    console.log('[AutoSave] Client-server mode: server handles game state persistence');
     
-    return () => clearInterval(interval);
-  }, [gameState, saveGame, intervalMs]);
+    // En el futuro, aquí podrías implementar un guardado local
+    // del estado para reconexión, pero el estado autoritativo
+    // siempre está en el servidor
+  }, [gameState, intervalMs]);
 }
 
 

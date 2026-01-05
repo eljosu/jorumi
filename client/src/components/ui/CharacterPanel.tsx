@@ -3,10 +3,13 @@
  * 
  * Panel que muestra información del personaje seleccionado
  * y permite realizar acciones
+ * 
+ * NOTA: En producción usa network-store (cliente-servidor)
  */
 
-import { useGameStore, selectSelectedCharacter } from '@/store/game-store';
+import { useNetworkStore } from '@/store/network-store';
 import { CharacterType, ActionType, ResourceType } from '@/types/game-types';
+import { useState } from 'react';
 
 // Nombres amigables para tipos de personajes
 const CHARACTER_NAMES: Record<CharacterType, string> = {
@@ -18,10 +21,13 @@ const CHARACTER_NAMES: Record<CharacterType, string> = {
 };
 
 export function CharacterPanel() {
-  const character = useGameStore(selectSelectedCharacter);
-  const gameState = useGameStore((state) => state.gameState);
-  const selectCharacter = useGameStore((state) => state.selectCharacter);
-  const dispatchAction = useGameStore((state) => state.dispatchAction);
+  const [selectedCharacterId, setSelectedCharacterId] = useState<string | null>(null);
+  const gameState = useNetworkStore((state) => state.gameState);
+  const sendAction = useNetworkStore((state) => state.sendAction);
+  
+  const character = selectedCharacterId && gameState?.characters 
+    ? gameState.characters.get(selectedCharacterId) 
+    : null;
   
   if (!character || !gameState) {
     return null;
@@ -29,8 +35,10 @@ export function CharacterPanel() {
   
   // Acciones disponibles según el tipo de personaje
   const handleGather = () => {
-    // Ejemplo: recolectar comida
-    dispatchAction({
+    if (!character || !gameState) return;
+    
+    // Enviar acción al servidor
+    sendAction({
       type: ActionType.GATHER_RESOURCES,
       playerId: gameState.currentPlayerId,
       characterId: character.id,
@@ -49,7 +57,7 @@ export function CharacterPanel() {
           <p className="text-xs text-gray-400">{character.name}</p>
         </div>
         <button
-          onClick={() => selectCharacter(null)}
+          onClick={() => setSelectedCharacterId(null)}
           className="text-gray-400 hover:text-white"
         >
           ✕
