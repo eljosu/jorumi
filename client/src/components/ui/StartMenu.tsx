@@ -4,25 +4,60 @@
  * Menú inicial para conectar al servidor y unirse/crear partida
  */
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNetworkStore } from '@/store/network-store';
 
 export function StartMenu() {
   const [playerName, setPlayerName] = useState('Player 1');
   const [roomId, setRoomId] = useState('');
   const [showJoinRoom, setShowJoinRoom] = useState(false);
+  const [isCreating, setIsCreating] = useState(false);
   
   const connect = useNetworkStore((state) => state.connect);
   const createRoom = useNetworkStore((state) => state.createRoom);
   const joinRoom = useNetworkStore((state) => state.joinRoom);
   const isConnected = useNetworkStore((state) => state.isConnected);
   const connectionStatus = useNetworkStore((state) => state.connectionStatus);
+  const lastError = useNetworkStore((state) => state.lastError);
+  
+  // Conectar automáticamente al cargar
+  useEffect(() => {
+    console.log('[StartMenu] Connecting to server...');
+    connect();
+  }, [connect]);
   
   const handleCreateRoom = () => {
+    console.log('[StartMenu] Create room clicked. Connected:', isConnected);
+    
+    if (!playerName.trim()) {
+      alert('Please enter your name');
+      return;
+    }
+    
     if (!isConnected) {
+      console.log('[StartMenu] Not connected, connecting first...');
+      setIsCreating(true);
       connect();
-      setTimeout(() => createRoom(playerName), 1000);
+      // Esperar conexión
+      const checkInterval = setInterval(() => {
+        if (isConnected) {
+          clearInterval(checkInterval);
+          console.log('[StartMenu] Connected, creating room...');
+          createRoom(playerName);
+          setIsCreating(false);
+        }
+      }, 100);
+      
+      // Timeout después de 10 segundos
+      setTimeout(() => {
+        clearInterval(checkInterval);
+        if (!isConnected) {
+          setIsCreating(false);
+          alert('Could not connect to server. Please try again.');
+        }
+      }, 10000);
     } else {
+      console.log('[StartMenu] Already connected, creating room...');
       createRoom(playerName);
     }
   };
@@ -33,9 +68,21 @@ export function StartMenu() {
       return;
     }
     
+    if (!playerName.trim()) {
+      alert('Please enter your name');
+      return;
+    }
+    
+    console.log('[StartMenu] Joining room:', roomId);
+    
     if (!isConnected) {
+      console.log('[StartMenu] Not connected, connecting first...');
       connect();
-      setTimeout(() => joinRoom(roomId, playerName), 1000);
+      setTimeout(() => {
+        if (isConnected) {
+          joinRoom(roomId, playerName);
+        }
+      }, 2000);
     } else {
       joinRoom(roomId, playerName);
     }
@@ -50,11 +97,18 @@ export function StartMenu() {
         {/* Connection Status */}
         <div className="text-center mb-6">
           <span className={`text-sm px-3 py-1 rounded ${
-            isConnected ? 'bg-green-600' : 'bg-red-600'
+            isConnected ? 'bg-green-600' : 'bg-yellow-600'
           }`}>
-            {connectionStatus}
+            {isConnected ? '🟢 Connected' : '🟡 Connecting...'}
           </span>
         </div>
+        
+        {/* Error Message */}
+        {lastError && (
+          <div className="bg-red-600 bg-opacity-90 text-white px-4 py-2 rounded mb-4 text-sm">
+            {lastError}
+          </div>
+        )}
         
         <div className="space-y-4">
           {/* Player name */}
@@ -74,9 +128,10 @@ export function StartMenu() {
           {/* Buttons */}
           <button
             onClick={handleCreateRoom}
-            className="w-full bg-jorumi-primary hover:bg-blue-600 text-white px-6 py-3 rounded font-bold transition-colors"
+            disabled={isCreating}
+            className="w-full bg-jorumi-primary hover:bg-blue-600 disabled:bg-gray-600 disabled:cursor-not-allowed text-white px-6 py-3 rounded font-bold transition-colors"
           >
-            Create New Room
+            {isCreating ? 'Creating...' : 'Create New Room'}
           </button>
           
           <button

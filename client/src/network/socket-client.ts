@@ -389,11 +389,21 @@ export class SocketClient {
    * Crea una nueva sala
    */
   createRoom(playerName: string, roomConfig?: any): void {
-    this.send({
+    console.log('[SocketClient] Creating room with player:', playerName);
+    
+    if (!this.socket?.connected) {
+      console.error('[SocketClient] Cannot create room - not connected');
+      return;
+    }
+    
+    const message: ClientMessage = {
       type: ClientMessageType.CREATE_ROOM,
       playerName,
       roomConfig,
-    } as ClientMessage);
+    } as any;
+    
+    console.log('[SocketClient] Sending CREATE_ROOM message:', message);
+    this.send(message);
   }
 
   /**
@@ -463,6 +473,7 @@ export class SocketClient {
       return;
     }
     
+    console.log('[SocketClient] Emitting message:', message.type);
     this.socket.emit('message', message);
   }
 
