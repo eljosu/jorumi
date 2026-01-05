@@ -48,12 +48,26 @@ var ResourceType;
  */
 var TileType;
 (function (TileType) {
+    // Losetas básicas
     TileType["GHETTO"] = "GHETTO";
     TileType["FOREST"] = "FOREST";
     TileType["MINE"] = "MINE";
     TileType["RUINS"] = "RUINS";
     TileType["ALIEN_SHIP"] = "ALIEN_SHIP";
     TileType["WASTELAND"] = "WASTELAND";
+    // Losetas de New York
+    TileType["SEA"] = "SEA";
+    TileType["BRIDGE"] = "BRIDGE";
+    TileType["BUNKER_TILE"] = "BUNKER_TILE";
+    TileType["GARDEN"] = "GARDEN";
+    TileType["HOSPITAL_TILE"] = "HOSPITAL_TILE";
+    // Losetas especiales (solo aliens)
+    TileType["TOXIC_WASTE"] = "TOXIC_WASTE";
+    TileType["MINE_TRAP"] = "MINE_TRAP";
+    // Losetas únicas (Isla de la Estatua de la Libertad)
+    TileType["LIBERTY_ISLAND"] = "LIBERTY_ISLAND";
+    TileType["SPACESHIP_PART"] = "SPACESHIP_PART";
+    TileType["RESCUE_BEACON_TILE"] = "RESCUE_BEACON_TILE";
 })(TileType || (exports.TileType = TileType = {}));
 /**
  * Tipos de edificios que se pueden construir

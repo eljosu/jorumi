@@ -55,12 +55,29 @@ export enum ResourceType {
  * Manual: El mapa se construye con losetas durante la exploración
  */
 export enum TileType {
+  // Losetas básicas
   GHETTO = 'GHETTO',           // Guetto - refugio de humanos
   FOREST = 'FOREST',           // Bosque - comida
   MINE = 'MINE',               // Mina - minerales y metal
   RUINS = 'RUINS',             // Ruinas - recursos variados
   ALIEN_SHIP = 'ALIEN_SHIP',   // Nave nodriza alienígena
   WASTELAND = 'WASTELAND',     // Tierra baldía
+  
+  // Losetas de New York
+  SEA = 'SEA',                 // Mar (algunas con barca/plataforma)
+  BRIDGE = 'BRIDGE',           // Puente (externos, intermedios, conexiones)
+  BUNKER_TILE = 'BUNKER_TILE', // Bunker (como loseta)
+  GARDEN = 'GARDEN',           // Huerto
+  HOSPITAL_TILE = 'HOSPITAL_TILE', // Hospital (como loseta)
+  
+  // Losetas especiales (solo aliens)
+  TOXIC_WASTE = 'TOXIC_WASTE', // Vertido tóxico - bloquea pasos
+  MINE_TRAP = 'MINE_TRAP',     // Mina explosiva - bloquea pasos
+  
+  // Losetas únicas (Isla de la Estatua de la Libertad)
+  LIBERTY_ISLAND = 'LIBERTY_ISLAND',   // Base de la isla
+  SPACESHIP_PART = 'SPACESHIP_PART',   // Parte de nave espacial (2 losetas)
+  RESCUE_BEACON_TILE = 'RESCUE_BEACON_TILE', // Baliza de rescate
 }
 
 /**

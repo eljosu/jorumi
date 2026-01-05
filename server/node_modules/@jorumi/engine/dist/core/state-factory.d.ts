@@ -15,6 +15,7 @@ export interface GameConfig {
 /**
  * Factory principal: crea el estado inicial completo del juego
  * Manual: Configuración inicial según las reglas oficiales
+ * NEW YORK POST-INVASION: 4 ghettos + Liberty Island
  */
 export declare function createInitialGameState(config: GameConfig): GameState;
 /**

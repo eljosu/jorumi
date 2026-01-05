@@ -13,8 +13,9 @@
 import { useNetworkStore, selectGameState, selectPlayerId, selectSelectedTileType } from '@/store/network-store';
 import { TileType, GamePhase } from '@/types/game-types';
 
-// Información visual de cada tipo de loseta
+// Información visual de cada tipo de loseta (NEW YORK POST-INVASION)
 const TILE_INFO: Record<TileType, { name: string; icon: string; color: string; description: string }> = {
+  // Básicas
   [TileType.GHETTO]: {
     name: 'Ghetto',
     icon: '🏘️',
@@ -36,8 +37,8 @@ const TILE_INFO: Record<TileType, { name: string; icon: string; color: string; d
   [TileType.RUINS]: {
     name: 'Ruins',
     icon: '🏚️',
-    color: '#CD853F',
-    description: 'Old structures. May contain supplies.',
+    color: '#8B4513',
+    description: 'Destroyed buildings. May have supplies.',
   },
   [TileType.WASTELAND]: {
     name: 'Wasteland',
@@ -50,6 +51,72 @@ const TILE_INFO: Record<TileType, { name: string; icon: string; color: string; d
     icon: '👽',
     color: '#8B00FF',
     description: 'Alien mothership location.',
+  },
+  
+  // New York
+  [TileType.SEA]: {
+    name: 'Sea',
+    icon: '🌊',
+    color: '#1E90FF',
+    description: 'Ocean. Some tiles have boats/platforms.',
+  },
+  [TileType.BRIDGE]: {
+    name: 'Bridge',
+    icon: '🌉',
+    color: '#696969',
+    description: 'Connects areas. Can be destroyed.',
+  },
+  [TileType.BUNKER_TILE]: {
+    name: 'Bunker',
+    icon: '🛡️',
+    color: '#708090',
+    description: 'Defensive structure.',
+  },
+  [TileType.GARDEN]: {
+    name: 'Garden',
+    icon: '🌱',
+    color: '#7CFC00',
+    description: 'Produces food.',
+  },
+  [TileType.HOSPITAL_TILE]: {
+    name: 'Hospital',
+    icon: '🏥',
+    color: '#FFFFFF',
+    description: 'Heals wounded humans.',
+  },
+  
+  // Especiales (aliens)
+  [TileType.TOXIC_WASTE]: {
+    name: 'Toxic Waste',
+    icon: '☢️',
+    color: '#00FF00',
+    description: 'Blocks humans. Alien use only.',
+  },
+  [TileType.MINE_TRAP]: {
+    name: 'Mine',
+    icon: '💣',
+    color: '#8B0000',
+    description: 'Explosive trap. Alien use only.',
+  },
+  
+  // Únicas
+  [TileType.LIBERTY_ISLAND]: {
+    name: 'Liberty Island',
+    icon: '🗽',
+    color: '#90EE90',
+    description: 'Base of the Statue of Liberty.',
+  },
+  [TileType.SPACESHIP_PART]: {
+    name: 'Spaceship Part',
+    icon: '🚀',
+    color: '#C0C0C0',
+    description: 'Escape ship component. Victory condition.',
+  },
+  [TileType.RESCUE_BEACON_TILE]: {
+    name: 'Rescue Beacon',
+    icon: '📡',
+    color: '#FFD700',
+    description: 'Calls for rescue. Victory condition.',
   },
 };
 

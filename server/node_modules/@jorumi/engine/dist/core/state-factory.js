@@ -28,17 +28,18 @@ function createInitialAlienState() {
     };
 }
 /**
- * Crea un guetto inicial
+ * Crea un guetto inicial (New York barrios)
  * Manual: Los humanos empiezan en guettos con población y recursos
  */
-function createInitialGhetto(index, tileId) {
+function createInitialGhetto(index, tileId, name) {
+    const ghettoNames = ['Manhattan', 'Bronx', 'Queens', 'Long Island'];
     return {
         id: (0, helpers_1.generateId)('ghetto'),
-        name: `Ghetto ${index + 1}`,
+        name: name || ghettoNames[index] || `Ghetto ${index + 1}`,
         tileId,
         controlStatus: types_1.GhettoControlStatus.HUMAN,
-        population: constants_1.INITIAL_CONFIG.STARTING_POPULATION_PER_GHETTO,
-        wounded: 0,
+        population: 8, // Reducido por la invasión (de 10 a 8)
+        wounded: 2, // Algunos heridos iniciales
         resources: (0, helpers_1.cloneInventory)(constants_1.INITIAL_CONFIG.INITIAL_RESOURCES),
         buildings: [],
         characters: [],
@@ -94,40 +95,87 @@ function createPlayers(playerNames) {
 /**
  * Factory principal: crea el estado inicial completo del juego
  * Manual: Configuración inicial según las reglas oficiales
+ * NEW YORK POST-INVASION: 4 ghettos + Liberty Island
  */
 function createInitialGameState(config) {
     const gameId = (0, helpers_1.generateId)('game');
     const seed = config.seed ?? Date.now();
     // Crear jugadores
     const players = createPlayers(config.playerNames);
-    // Crear mapa inicial con losetas de guettos
+    // Crear mapa inicial - NEW YORK POST-INVASION
     const tiles = new Map();
-    const ghettoTile1 = createInitialTile(types_1.TileType.GHETTO, 0, 0);
-    const ghettoTile2 = createInitialTile(types_1.TileType.GHETTO, 2, 0);
-    tiles.set(ghettoTile1.id, ghettoTile1);
-    tiles.set(ghettoTile2.id, ghettoTile2);
-    // Crear guettos iniciales
     const ghettos = new Map();
-    const ghetto1 = createInitialGhetto(0, ghettoTile1.id);
-    const ghetto2 = createInitialGhetto(1, ghettoTile2.id);
-    ghettos.set(ghetto1.id, ghetto1);
-    ghettos.set(ghetto2.id, ghetto2);
-    // Crear personajes iniciales (uno de cada tipo en cada guetto)
+    // ============================================================================
+    // 4 GHETTOS: Manhattan, Bronx, Queens, Long Island (50% completos)
+    // ============================================================================
+    const ghettoPositions = [
+        // Manhattan (suroeste)
+        { q: -4, r: 2, name: 'Manhattan' },
+        // Bronx (noroeste)
+        { q: -4, r: -2, name: 'Bronx' },
+        // Queens (noreste)
+        { q: 4, r: -2, name: 'Queens' },
+        // Long Island (sureste)
+        { q: 4, r: 2, name: 'Long Island' },
+    ];
+    ghettoPositions.forEach((pos, index) => {
+        // Loseta central del ghetto (en ruinas)
+        const centralTile = createInitialTile(types_1.TileType.RUINS, pos.q, pos.r);
+        tiles.set(centralTile.id, centralTile);
+        // Crear ghetto
+        const ghetto = createInitialGhetto(index, centralTile.id, pos.name);
+        ghettos.set(ghetto.id, ghetto);
+        // Crear 50% de losetas adyacentes (en ruinas)
+        const adjacentOffsets = [
+            { q: 1, r: 0 }, // Este
+            { q: 0, r: 1 }, // Sureste
+            { q: -1, r: 1 }, // Suroeste
+        ];
+        adjacentOffsets.forEach(offset => {
+            const adjTile = createInitialTile(types_1.TileType.RUINS, pos.q + offset.q, pos.r + offset.r);
+            tiles.set(adjTile.id, adjTile);
+        });
+    });
+    // ============================================================================
+    // ISLA DE LA ESTATUA DE LA LIBERTAD (centro)
+    // ============================================================================
+    // Base de la isla (parcialmente completa)
+    const libertyIslandBase = createInitialTile(types_1.TileType.LIBERTY_ISLAND, 0, 0);
+    tiles.set(libertyIslandBase.id, libertyIslandBase);
+    // Losetas adyacentes (mar alrededor)
+    const libertyAdjacentOffsets = [
+        { q: 1, r: 0 },
+        { q: 0, r: 1 },
+        { q: -1, r: 1 },
+    ];
+    libertyAdjacentOffsets.forEach(offset => {
+        const seaTile = createInitialTile(types_1.TileType.SEA, offset.q, offset.r);
+        tiles.set(seaTile.id, seaTile);
+    });
+    // Espacio para 3 losetas especiales (aún no colocadas)
+    // - 2 partes de nave espacial
+    // - 1 baliza de rescate
+    // Se colocarán durante el juego en posiciones específicas:
+    // { q: -1, r: 0 }, { q: 0, r: -1 }, { q: 1, r: -1 }
+    // ============================================================================
+    // PERSONAJES INICIALES (distribuidos entre ghettos)
+    // ============================================================================
     const characters = new Map();
     const characterTypes = Object.values(types_1.CharacterType);
-    // Distribuir personajes entre guettos
+    const ghettoList = Array.from(ghettos.values());
+    // Distribuir personajes entre los 4 ghettos
     characterTypes.forEach((type, index) => {
-        const ghettoId = index % 2 === 0 ? ghetto1.id : ghetto2.id;
-        const character = createInitialCharacter(type, 1, ghettoId);
+        const targetGhetto = ghettoList[index % 4];
+        const character = createInitialCharacter(type, 1, targetGhetto.id);
         characters.set(character.id, character);
-        // Agregar personaje al guetto
-        const ghetto = ghettos.get(ghettoId);
-        ghetto.characters.push(character.id);
+        targetGhetto.characters.push(character.id);
     });
-    // Crear estado alienígena
+    // ============================================================================
+    // ESTADO ALIENÍGENA
+    // ============================================================================
     const alien = createInitialAlienState();
-    // Crear nave nodriza en posición lejana
-    const mothershipTile = createInitialTile(types_1.TileType.ALIEN_SHIP, -3, 3);
+    // Nave nodriza en posición lejana (fuera del mapa inicial)
+    const mothershipTile = createInitialTile(types_1.TileType.ALIEN_SHIP, -8, 4);
     tiles.set(mothershipTile.id, mothershipTile);
     alien.currentTileId = mothershipTile.id;
     // Construir estado inicial completo

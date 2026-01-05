@@ -33,12 +33,29 @@ export enum ResourceType {
 }
 
 export enum TileType {
+  // Losetas básicas
   GHETTO = 'GHETTO',
   FOREST = 'FOREST',
   MINE = 'MINE',
   RUINS = 'RUINS',
   ALIEN_SHIP = 'ALIEN_SHIP',
   WASTELAND = 'WASTELAND',
+  
+  // Losetas de New York
+  SEA = 'SEA',
+  BRIDGE = 'BRIDGE',
+  BUNKER_TILE = 'BUNKER_TILE',
+  GARDEN = 'GARDEN',
+  HOSPITAL_TILE = 'HOSPITAL_TILE',
+  
+  // Losetas especiales (solo aliens)
+  TOXIC_WASTE = 'TOXIC_WASTE',
+  MINE_TRAP = 'MINE_TRAP',
+  
+  // Losetas únicas (Isla de la Estatua de la Libertad)
+  LIBERTY_ISLAND = 'LIBERTY_ISLAND',
+  SPACESHIP_PART = 'SPACESHIP_PART',
+  RESCUE_BEACON_TILE = 'RESCUE_BEACON_TILE',
 }
 
 export enum BuildingType {
